@@ -222,6 +222,21 @@ h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 16p
 .portfolio-photo.before { background: #e8e0d8; color: #8a7c72; }
 .portfolio-photo.after { background: #d4e4d6; color: var(--color-accent); }
 
+.portfolio-img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.portfolio-item--full {
+  grid-column: 1 / -1;
+  max-width: 860px;
+  margin: 0 auto;
+  width: 100%;
+}
+
 .portfolio-label {
   font-size: 0.75rem;
   font-weight: 600;
