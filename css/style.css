@@ -202,8 +202,6 @@ ul    { list-style: none; }
 .comp-after {
   position: absolute;
   inset: 0;
-  width: 50%;
-  overflow: hidden;
   z-index: 2;
   background-image: url('../Resorses_/hero-ba.png');
   background-size: 200% 100%;

@@ -9,9 +9,8 @@
 
   const apply = (pct) => {
     split = Math.min(1, Math.max(0, pct));
-    const pctStr = `${split * 100}%`;
-    after.style.width = pctStr;
-    handle.style.left = pctStr;
+    after.style.clipPath = `inset(0 0 0 ${(1 - split) * 100}%)`;
+    handle.style.left = `${split * 100}%`;
   };
 
   const fromEvent = (e) => {
