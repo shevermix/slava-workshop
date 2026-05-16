@@ -193,6 +193,10 @@ ul    { list-style: none; }
   position: absolute;
   inset: 0;
   z-index: 1;
+  background-image: url('../Resorses_/hero-ba.png');
+  background-size: 200% 100%;
+  background-position: left center;
+  background-repeat: no-repeat;
 }
 
 .comp-after {
@@ -201,22 +205,10 @@ ul    { list-style: none; }
   width: 50%;
   overflow: hidden;
   z-index: 2;
-}
-
-.comp-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 200%;
-  max-width: none;
-  object-fit: cover;
-  pointer-events: none;
-}
-
-.comp-img--before,
-.comp-img--after {
-  left: 0;
+  background-image: url('../Resorses_/hero-ba.png');
+  background-size: 200% 100%;
+  background-position: right center;
+  background-repeat: no-repeat;
 }
 
 .comp-handle {
