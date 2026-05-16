@@ -3,260 +3,377 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Slavik Workshop — Kitchen Cabinet Painting in Boston, MA</title>
-  <meta name="description" content="Professional kitchen cabinet painting in Boston, Middlesex, Norfolk, Bristol & Plymouth County. Eco-friendly paints, free estimate by photo, 1-year guarantee." />
+  <title>Slavik Workshop — Professional Kitchen Cabinet Painting, Boston MA</title>
+  <meta name="description" content="Professional kitchen cabinet painting in Boston, Middlesex, Norfolk, Bristol & Plymouth County, MA. Eco-friendly paints, 1-year warranty, licensed & insured. Free estimate by photo — text (508) 594-9313." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- Nav -->
-  <nav>
+  <!-- NAVBAR -->
+  <nav id="navbar">
     <div class="nav-inner">
-      <a href="#hero" class="nav-logo">
-        <img src="images/logo.jpg" alt="Slavik Workshop" class="nav-logo-img" />
+      <a href="#" class="nav-logo">
+        <img src="Resorses_/logo.svg" alt="Slavik Workshop logo" width="40" height="40" />
+        <div class="nav-logo-name">
+          <span>Slavik</span>
+          <span>Workshop</span>
+        </div>
       </a>
+
       <ul class="nav-links">
-        <li><a href="#benefits">Why Us</a></li>
-        <li><a href="#how-it-works">Process</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="#prices">Pricing</a></li>
+        <li><a href="#">HOME</a></li>
+        <li><a href="#portfolio">PORTFOLIO</a></li>
+        <li><a href="#service-areas">SERVICE AREAS</a></li>
+        <li><a href="#contact">CONTACT</a></li>
       </ul>
-      <a href="#contact" class="nav-cta">Free Estimate</a>
+
+      <div class="nav-right">
+        <a href="tel:5085949313" class="nav-phone">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+            <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+          </svg>
+          508-594-9313
+        </a>
+        <a href="sms:5085949313" class="nav-text-btn">TEXT US</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu">
+      <ul>
+        <li><a href="#" onclick="closeNav()">HOME</a></li>
+        <li><a href="#portfolio" onclick="closeNav()">PORTFOLIO</a></li>
+        <li><a href="#service-areas" onclick="closeNav()">SERVICE AREAS</a></li>
+        <li><a href="#contact" onclick="closeNav()">CONTACT</a></li>
+        <li><a href="sms:5085949313">Text (508) 594-9313</a></li>
+      </ul>
     </div>
   </nav>
 
-  <!-- Hero -->
+  <!-- HERO -->
   <section id="hero">
-    <div class="container hero-inner">
+
+    <!-- Hero media: interactive before/after slider -->
+    <div class="hero-media">
+      <div class="comparison" id="comparison">
+
+        <div class="comp-before">
+          <img src="Resorses_/hero-ba.png" alt="Before: oak kitchen cabinets" class="comp-img comp-img--before" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1400&q=80'" />
+        </div>
+
+        <div class="comp-after" id="comp-after">
+          <img src="Resorses_/hero-ba.png" alt="After: white painted cabinets" class="comp-img comp-img--after" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1400&q=80'" />
+        </div>
+
+        <!-- Draggable handle -->
+        <div class="comp-handle" id="comp-handle">
+          <div class="comp-line"></div>
+          <div class="comp-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transform:scaleX(-1)" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </div>
+        </div>
+
+        <span class="comp-label comp-label--before">BEFORE</span>
+        <span class="comp-label comp-label--after">AFTER</span>
+      </div>
+
+      <!-- Dark gradient overlay for text readability (desktop) -->
+      <div class="hero-overlay" aria-hidden="true"></div>
+
+      <!-- Text content (overlaid on desktop, block below on mobile) -->
       <div class="hero-content">
-        <span class="section-label">Kitchen Cabinet Painting · Boston, MA</span>
-        <h1>New kitchen look — <span>no replacement needed</span></h1>
-        <p>Professional cabinet painting for homeowners in Boston, Middlesex, Norfolk, Bristol & Plymouth County. Eco-friendly paints, zero mess, lasting results.</p>
-        <div class="hero-actions">
-          <a href="#contact" class="btn-primary">Get a Free Estimate</a>
-          <a href="https://www.instagram.com/slavik.workshop?igsh=MXZjN3BpdHhtcnU1dw%3D%3D&utm_source=qr" target="_blank" class="btn-secondary">See Our Work</a>
-        </div>
-      </div>
-      <div class="hero-image">
-        <img src="images/workshop-process.jpg" alt="Slavik Workshop — cabinet painting process" style="width:100%;height:100%;object-fit:cover;border-radius:20px;" />
+        <h1>PROFESSIONAL<br />KITCHEN CABINET<br />PAINTING</h1>
+        <p>Professional results you can see — stunning, durable finish.<br />Fast turnaround. Eco-friendly paints, zero odor.</p>
+        <a href="#contact" class="btn-estimate">FREE ESTIMATE BY PHOTO</a>
       </div>
     </div>
+
+    <!-- Trust badges -->
+    <div class="hero-badges">
+      <div class="hero-badge">
+        <div class="badge-icon badge-icon--green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+            <path d="M8 12s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>
+          </svg>
+        </div>
+        <div class="badge-text">
+          <strong>ECO-FRIENDLY PAINT</strong>
+          <span>Odorless, safe for your home</span>
+        </div>
+      </div>
+
+      <div class="badge-divider"></div>
+
+      <div class="hero-badge">
+        <div class="badge-icon badge-icon--navy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <div class="badge-text">
+          <strong>1-YEAR WARRANTY</strong>
+          <span>Guaranteed professional quality</span>
+        </div>
+      </div>
+
+      <div class="badge-divider"></div>
+
+      <div class="hero-badge">
+        <div class="badge-icon badge-icon--navy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="8" r="5"/>
+            <path d="M3 21v-1a9 9 0 0 1 18 0v1"/>
+            <path d="M9 13l1.5 2L13 11l1.5 2"/>
+          </svg>
+        </div>
+        <div class="badge-text">
+          <strong>LICENSED &amp; INSURED</strong>
+          <span>Licensed contractor on request</span>
+        </div>
+      </div>
+    </div>
+
   </section>
 
-  <!-- Benefits -->
-  <section id="benefits">
+  <!-- OUR SERVICES -->
+  <section id="services">
     <div class="container">
-      <span class="section-label">Why Choose Us</span>
-      <h2>Slavik Workshop Advantages</h2>
-      <p class="subtitle">We show up on time, work clean, and stand behind every job with a 1-year guarantee.</p>
-      <div class="benefits-grid">
-        <div class="benefit-card">
-          <div class="benefit-icon">💰</div>
-          <h3>3–5x cheaper than replacing</h3>
-          <p>Refresh your kitchen for a fraction of the cost of new cabinets.</p>
+      <h2 class="section-heading">OUR SERVICES</h2>
+      <div class="services-row">
+
+        <div class="service-step">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="8" y="2" width="8" height="4" rx="1"/>
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+              <path d="M12 11h4M12 15h4M8 11h.01M8 15h.01"/>
+            </svg>
+          </div>
+          <strong>PREP</strong>
+          <span>Remove, label &amp; protect your home with film</span>
         </div>
-        <div class="benefit-card">
-          <div class="benefit-icon">🌿</div>
-          <h3>Eco-friendly, no odor</h3>
-          <p>We use low-VOC eco paints — safe for your family and pets.</p>
+
+        <div class="service-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
         </div>
-        <div class="benefit-card">
-          <div class="benefit-icon">🛡️</div>
-          <h3>1-Year Guarantee</h3>
-          <p>We protect your furniture with film during work and guarantee our finish for 12 months.</p>
+
+        <div class="service-step">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M2 16l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+              <path d="M2 8l10-5 10 5-10 5z"/>
+            </svg>
+          </div>
+          <strong>PAINT</strong>
+          <span>Eco paints, professional shop finish</span>
         </div>
-        <div class="benefit-card">
-          <div class="benefit-icon">📸</div>
-          <h3>Free estimate by photo</h3>
-          <p>Send us a few photos and get a price right away — no visit needed to start.</p>
+
+        <div class="service-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
         </div>
+
+        <div class="service-step">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="8" r="6"/>
+              <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
+            </svg>
+          </div>
+          <strong>FINISH</strong>
+          <span>Reinstall, adjust &amp; final walkthrough</span>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- How it works -->
-  <section id="how-it-works">
+  <section id="extras">
     <div class="container">
-      <span class="section-label">Process</span>
-      <h2>How It Works</h2>
-      <p class="subtitle">Three simple steps to your transformed kitchen.</p>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-text">
-            <h3>Send photos — get a quote</h3>
-            <p>Text us a few photos of your cabinets. We'll send back an estimate fast — no visit required.</p>
-          </div>
+      <h2 class="section-heading">ALSO AVAILABLE</h2>
+      <div class="extras-grid">
+        <div class="extra-card">
+          <h3>Kitchen Island Painting</h3>
+          <p>Paint your island separately — same durable finish, custom color to match or contrast your cabinets.</p>
         </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-text">
-            <h3>We paint in our shop</h3>
-            <p>We remove the doors, paint them in our workshop with professional eco-grade materials, and protect your furniture with film.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-text">
-            <h3>Install & enjoy</h3>
-            <p>We reinstall everything and do a final walkthrough. Your kitchen looks brand new.</p>
-          </div>
+        <div class="extra-card">
+          <h3>Handles &amp; Hinges</h3>
+          <p>Upgrade pulls, knobs and soft-close hinges as part of your refresh for a complete new look.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Video -->
-  <section id="video" style="background:var(--color-surface);padding:60px 24px;">
-    <div class="container" style="text-align:center;">
-      <span class="section-label">Watch Us Work</span>
-      <h2>See the process in action</h2>
-      <p class="subtitle" style="margin:0 auto 36px;">From raw cabinet doors to a flawless finish — inside our workshop.</p>
-      <video controls playsinline style="width:100%;max-width:720px;border-radius:16px;box-shadow:var(--shadow);">
-        <source src="images/workshop-video.mp4" type="video/mp4" />
-      </video>
-    </div>
-  </section>
-
-  <!-- Portfolio -->
   <section id="portfolio">
     <div class="container">
-      <span class="section-label">Our Work</span>
-      <h2>Portfolio</h2>
-      <p class="subtitle">Real before & after results. More photos on our <a href="https://www.instagram.com/slavik.workshop?igsh=MXZjN3BpdHhtcnU1dw%3D%3D&utm_source=qr" target="_blank" style="color:var(--color-accent);">Instagram</a>.</p>
+      <h2 class="section-heading">BEFORE &amp; AFTER</h2>
+      <p class="section-sub">Real projects from our workshop. Full gallery on Instagram.</p>
       <div class="portfolio-grid">
-        <div class="portfolio-item portfolio-item--full">
+
+        <div class="portfolio-card">
           <div class="portfolio-pair">
-            <div>
-              <img src="images/before-1.jpg" alt="Kitchen cabinets before painting — dark espresso" class="portfolio-img" />
-              <div class="portfolio-label">Before</div>
-            </div>
-            <div>
-              <img src="images/after-1.jpg" alt="Kitchen cabinets after painting — white and grey-blue" class="portfolio-img" />
-              <div class="portfolio-label">After</div>
-            </div>
+            <div class="pair-half pair-before"><img src="Resorses_/hero-ba.png" alt="Before: oak cabinets" /></div>
+            <div class="pair-half pair-after"><img src="Resorses_/hero-ba.png" alt="After: matte white" /></div>
           </div>
+          <p class="portfolio-caption">Oak to Matte White</p>
         </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-pair">
+            <div class="pair-half pair-before"><img src="Resorses_/hero-ba.png" alt="Before: oak cabinets" /></div>
+            <div class="pair-half pair-after"><img src="Resorses_/hero-ba.png" alt="After: matte white" /></div>
+          </div>
+          <p class="portfolio-caption">Oak to Matte White</p>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-pair">
+            <div class="pair-half pair-before"><img src="Resorses_/hero-ba.png" alt="Before: oak cabinets" /></div>
+            <div class="pair-half pair-after"><img src="Resorses_/hero-ba.png" alt="After: matte white" /></div>
+          </div>
+          <p class="portfolio-caption">Oak to Matte White</p>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-pair">
+            <div class="pair-half pair-before"><img src="Resorses_/hero-ba.png" alt="Before: dark wood cabinets" /></div>
+            <div class="pair-half pair-after"><img src="Resorses_/hero-ba.png" alt="After: painted finish" /></div>
+          </div>
+          <p class="portfolio-caption">Dark Wood to Navy Blue</p>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-pair">
+            <div class="pair-half pair-before"><img src="Resorses_/hero-ba.png" alt="Before: dark wood cabinets" /></div>
+            <div class="pair-half pair-after"><img src="Resorses_/hero-ba.png" alt="After: painted finish" /></div>
+          </div>
+          <p class="portfolio-caption">Dark Wood to Navy Blue</p>
+        </div>
+
+        <div class="portfolio-card">
+          <div class="portfolio-pair">
+            <div class="pair-half pair-before"><img src="Resorses_/hero-ba.png" alt="Before: wood cabinets" /></div>
+            <div class="pair-half pair-after"><img src="Resorses_/hero-ba.png" alt="After: painted finish" /></div>
+          </div>
+          <p class="portfolio-caption">Custom Color Refresh</p>
+        </div>
+
       </div>
-      <div style="text-align:center;margin-top:32px;">
-        <a href="https://www.instagram.com/slavik.workshop?igsh=MXZjN3BpdHhtcnU1dw%3D%3D&utm_source=qr" target="_blank" class="btn-secondary">
-          📸 See more on Instagram @slavik.workshop
+
+      <div class="portfolio-more">
+        <a href="https://www.instagram.com/slavik.workshop?igsh=MXZjN3BpdHhtcnU1dw%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" class="btn-outline">
+          See More on Instagram @slavik.workshop
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Prices -->
-  <section id="prices">
-    <div class="container">
-      <span class="section-label">Pricing</span>
-      <h2>Transparent Pricing</h2>
-      <p class="subtitle">No hidden fees. Get your exact quote by sending us a photo.</p>
-      <div class="prices-grid">
-        <div class="price-card">
-          <h3>Basic</h3>
-          <div class="price">from $60 <span>/ door</span></div>
-          <ul>
-            <li>Single color paint</li>
-            <li>Matte finish</li>
-            <li>1-year guarantee</li>
-            <li>Turnaround: 5–7 days</li>
-          </ul>
-          <a href="#contact" class="btn-primary">Get Estimate</a>
-        </div>
-        <div class="price-card featured">
-          <span class="badge">Most Popular</span>
-          <h3>Standard</h3>
-          <div class="price">from $85 <span>/ door</span></div>
-          <ul>
-            <li>Any color (custom match)</li>
-            <li>Matte or satin finish</li>
-            <li>1-year guarantee</li>
-            <li>Turnaround: 3–5 days</li>
-          </ul>
-          <a href="#contact" class="btn-primary">Get Estimate</a>
-        </div>
-        <div class="price-card">
-          <h3>Full Kitchen</h3>
-          <div class="price">Custom <span>quote</span></div>
-          <ul>
-            <li>Cabinets + island</li>
-            <li>Hardware replacement</li>
-            <li>1-year guarantee</li>
-            <li>Free in-home estimate</li>
-          </ul>
-          <a href="#contact" class="btn-primary">Get Estimate</a>
-        </div>
+  <!-- SERVICE AREAS + CONTACT -->
+  <section id="service-areas">
+    <div class="areas-wrapper">
+
+      <div class="areas-map-col">
+        <h2 class="section-heading">SERVICE AREAS</h2>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d188487.64999799483!2d-71.25060389208985!3d42.31305995793818!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e3652d0d3d311b%3A0x787cbf240162e8a0!2sBoston%2C%20MA!5e0!3m2!1sen!2sus!4v1684000000000!5m2!1sen!2sus"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Service areas map — Boston Metro"></iframe>
+        <ul class="area-chips" aria-label="Counties we serve">
+          <li>Boston, MA</li>
+          <li>Middlesex County</li>
+          <li>Norfolk County</li>
+          <li>Bristol County</li>
+          <li>Plymouth County</li>
+        </ul>
       </div>
+
+      <div class="areas-form-col" id="contact">
+        <h2 class="section-heading">FREE ESTIMATE BY PHOTO</h2>
+        <p class="contact-lead">Text us your kitchen photos — we reply by SMS. No obligation.</p>
+        <form id="contact-form" class="cta-form" novalidate>
+          <input type="text" name="name" placeholder="NAME" required autocomplete="name" />
+          <input type="email" name="email" placeholder="EMAIL" required autocomplete="email" />
+          <input type="tel" name="phone" placeholder="PHONE" required autocomplete="tel" />
+
+          <label class="upload-label" for="photo-input">
+            <input type="file" id="photo-input" name="photos" accept="image/*" multiple />
+            <div class="upload-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+            </div>
+            <span id="upload-text">UPLOAD PHOTOS</span>
+          </label>
+
+          <button type="submit">SUBMIT REQUEST</button>
+        </form>
+        <p id="form-success" style="display:none">
+          ✅ Request received! We'll get back to you shortly.
+        </p>
+      </div>
+
     </div>
   </section>
 
-  <!-- Services extra -->
-  <section id="services-extra" style="background:var(--color-surface); padding: 60px 24px;">
-    <div class="container">
-      <span class="section-label">Also Available</span>
-      <h2>Additional Services</h2>
-      <div class="benefits-grid" style="margin-top:36px;">
-        <div class="benefit-card">
-          <div class="benefit-icon">🏝️</div>
-          <h3>Kitchen Island Painting</h3>
-          <p>We paint islands separately — same quality finish, custom color to match or contrast your cabinets.</p>
-        </div>
-        <div class="benefit-card">
-          <div class="benefit-icon">🔩</div>
-          <h3>Hardware Replacement</h3>
-          <p>New handles and soft-close hinges installed as part of your project for a complete refresh.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact">
-    <div class="container">
-      <span class="section-label" style="background:rgba(255,255,255,0.2);color:#fff;">Contact</span>
-      <h2>Get Your Free Estimate</h2>
-      <p class="subtitle">Text us a few photos and we'll send a quote back. Fast, no commitment.</p>
-      <div class="contact-inner">
-        <div class="contact-info">
-          <p>Serving Boston, Middlesex, Norfolk, Bristol & Plymouth County, MA.</p>
-          <div class="contact-detail">
-            <span class="icon">📱</span>
-            <a href="sms:5085949313" style="color:#fff;">(508) 594-9313 — Text us</a>
-          </div>
-          <div class="contact-detail">
-            <span class="icon">📸</span>
-            <a href="https://www.instagram.com/slavik.workshop?igsh=MXZjN3BpdHhtcnU1dw%3D%3D&utm_source=qr" target="_blank" style="color:#fff;">@slavik.workshop on Instagram</a>
-          </div>
-          <div class="contact-detail">
-            <span class="icon">🕐</span>
-            <span>Mon–Sat, 8am–7pm</span>
-          </div>
-          <div class="contact-detail">
-            <span class="icon">✅</span>
-            <span>Licensed & Insured</span>
-          </div>
-        </div>
-        <div>
-          <form id="contact-form">
-            <input type="text" name="name" placeholder="Your name" required />
-            <input type="tel" name="phone" placeholder="Phone number" required />
-            <textarea name="message" placeholder="Tell us about your kitchen (number of doors, current color, desired color)"></textarea>
-            <button type="submit" class="btn-submit">Send Request</button>
-            <p class="form-note">By submitting you agree to be contacted by SMS or phone.</p>
-          </form>
-          <div id="form-success" class="form-success">
-            ✅ Request received! We'll get back to you shortly.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer>
-    <p>© 2025 Slavik Workshop · Kitchen Cabinet Painting · Boston, MA · <a href="sms:5085949313" style="color:rgba(255,255,255,0.5);">(508) 594-9313</a></p>
+    <div class="footer-top">
+      <a href="#" class="footer-logo">
+        <img src="Resorses_/logo.svg" alt="Slavik Workshop logo" width="40" height="40" />
+        <div>
+          <span>Slavik</span>
+          <span>Workshop</span>
+        </div>
+      </a>
+
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="#">HOME</a>
+        <span>|</span>
+        <a href="#portfolio">PORTFOLIO</a>
+        <span>|</span>
+        <a href="#service-areas">SERVICE AREAS</a>
+        <span>|</span>
+        <a href="#contact">CONTACT</a>
+      </nav>
+
+      <div class="footer-social">
+        <a href="https://www.instagram.com/slavik.workshop?igsh=MXZjN3BpdHhtcnU1dw%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Slavik Workshop. Licensed &amp; Insured. <a href="sms:5085949313">Text (508) 594-9313</a></p>
+    </div>
   </footer>
+
+  <a href="sms:5085949313" class="sms-float" aria-label="Text us at 508-594-9313">TEXT</a>
 
   <script src="js/main.js"></script>
 </body>

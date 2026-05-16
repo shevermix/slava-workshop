@@ -1,33 +1,94 @@
-// Sticky nav shadow
-const nav = document.querySelector('nav');
+// ── Before/after comparison slider ───────────────────────────
+(function initComparison() {
+  const root = document.getElementById('comparison');
+  const after = document.getElementById('comp-after');
+  const handle = document.getElementById('comp-handle');
+  if (!root || !after || !handle) return;
+
+  let split = 0.5;
+
+  const apply = (pct) => {
+    split = Math.min(1, Math.max(0, pct));
+    const pctStr = `${split * 100}%`;
+    after.style.width = pctStr;
+    handle.style.left = pctStr;
+  };
+
+  const fromEvent = (e) => {
+    const rect = root.getBoundingClientRect();
+    apply((e.clientX - rect.left) / rect.width);
+  };
+
+  const onDown = (e) => {
+    root.setPointerCapture(e.pointerId);
+    fromEvent(e);
+  };
+
+  const onMove = (e) => {
+    if (!root.hasPointerCapture(e.pointerId)) return;
+    if (e.buttons === 0) {
+      root.releasePointerCapture(e.pointerId);
+      return;
+    }
+    fromEvent(e);
+  };
+
+  const onUp = (e) => {
+    if (root.hasPointerCapture(e.pointerId)) {
+      root.releasePointerCapture(e.pointerId);
+    }
+  };
+
+  root.addEventListener('pointerdown', onDown);
+  root.addEventListener('pointermove', onMove);
+  root.addEventListener('pointerup', onUp);
+  root.addEventListener('pointercancel', onUp);
+  window.addEventListener('resize', () => apply(split));
+  apply(split);
+})();
+
+// ── Navbar shadow on scroll ──────────────────────────────────
+const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 20);
+  navbar.style.boxShadow = window.scrollY > 10
+    ? '0 2px 20px rgba(0,0,0,0.14)'
+    : '0 1px 8px rgba(0,0,0,0.07)';
+}, { passive: true });
+
+// ── Mobile menu ──────────────────────────────────────────────
+const hamburger  = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+
+function closeNav() {
+  mobileMenu.classList.remove('open');
+}
+
+hamburger?.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
 });
 
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', e => {
-    const target = document.querySelector(link.getAttribute('href'));
-    if (!target) return;
-    e.preventDefault();
-    const offset = 72;
-    window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
-  });
+document.addEventListener('click', (e) => {
+  if (!navbar.contains(e.target)) closeNav();
 });
 
-// Contact form validation & submit
-const form = document.getElementById('contact-form');
-const successMsg = document.getElementById('form-success');
+// ── Photo upload label ───────────────────────────────────────
+const photoInput = document.getElementById('photo-input');
+const uploadText = document.getElementById('upload-text');
 
-form.addEventListener('submit', e => {
+photoInput?.addEventListener('change', () => {
+  const n = photoInput.files.length;
+  uploadText.textContent = n > 0
+    ? `${n} photo${n > 1 ? 's' : ''} selected`
+    : 'UPLOAD PHOTOS';
+});
+
+// ── Contact form ─────────────────────────────────────────────
+const contactForm = document.getElementById('contact-form');
+const formSuccess = document.getElementById('form-success');
+
+contactForm?.addEventListener('submit', (e) => {
   e.preventDefault();
-  const name = form.querySelector('[name="name"]').value.trim();
-  const phone = form.querySelector('[name="phone"]').value.trim();
-  const phoneClean = phone.replace(/\D/g, '');
-
-  if (!name) { alert('Пожалуйста, введите ваше имя.'); return; }
-  if (phoneClean.length < 7) { alert('Пожалуйста, введите корректный номер телефона.'); return; }
-
-  form.style.display = 'none';
-  successMsg.style.display = 'block';
+  // TODO: connect to real email/CRM service (Formspree, Netlify Forms, etc.)
+  contactForm.style.display = 'none';
+  formSuccess.style.display = 'block';
 });
