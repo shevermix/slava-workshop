@@ -42,9 +42,11 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
 .hero-right{flex:1;position:relative;overflow:hidden;cursor:ew-resize;touch-action:pan-y}
 .hero-before-img{position:absolute;inset:0;background:url('../kitch_bef-1.jpg') left center/100% 100% no-repeat;background-color:#7A5030}
 .hero-after-img{position:absolute;inset:0;background:url('../kitch_aft-1.jpg') right center/100% 100% no-repeat;background-color:#F5F3EE}
-.hero-divider{position:absolute;top:0;height:100%;width:3px;background:#fff;box-shadow:0 0 16px rgba(0,0,0,.4);z-index:10;transform:translateX(-50%)}
-.hero-handle{position:absolute;top:50%;z-index:11;width:48px;height:48px;border-radius:50%;background:#fff;box-shadow:0 2px 20px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;transform:translate(-50%,-50%);font-size:17px;color:var(--brand);font-weight:700}
-.hero-lbl{position:absolute;top:16px;z-index:12;background:rgba(0,0,0,.5);color:#fff;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:4px}
+.hero-divider{position:absolute;top:0;height:100%;width:2px;background:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.2),0 0 18px rgba(255,255,255,.95),0 0 40px rgba(255,255,255,.35);z-index:10;transform:translateX(-50%)}
+@keyframes handlePulse{0%,100%{box-shadow:0 0 0 3px rgba(255,255,255,.55),0 4px 24px rgba(0,0,0,.32)}50%{box-shadow:0 0 0 7px rgba(255,255,255,.25),0 4px 24px rgba(0,0,0,.32),0 0 0 12px rgba(255,255,255,.08)}}
+.hero-handle{position:absolute;top:50%;z-index:11;width:52px;height:52px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.55),0 4px 24px rgba(0,0,0,.32);display:flex;align-items:center;justify-content:center;gap:3px;transform:translate(-50%,-50%);color:var(--brand);cursor:ew-resize;animation:handlePulse 1.8s ease-in-out 2s 3}
+.hero-handle-sep{width:1.5px;height:17px;background:var(--brand);opacity:.22;border-radius:1px;flex-shrink:0}
+.hero-lbl{position:absolute;top:16px;z-index:12;background:rgba(0,0,0,.32);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:4px}
 
 /* BADGES */
 @keyframes badgeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
