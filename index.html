@@ -1,263 +1,399 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Slavik Workshop — Kitchen Cabinet Painting in Boston, MA</title>
-  <meta name="description" content="Professional kitchen cabinet painting in Boston, Middlesex, Norfolk, Bristol & Plymouth County. Eco-friendly paints, free estimate by photo, 1-year guarantee." />
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Slavik Workshop — Kitchen Cabinet Painting · Boston, MA</title>
+  <meta name="description" content="Professional kitchen cabinet painting in Boston, MA. Eco-friendly paints, 1-year warranty, free estimate by photo. Text 508-594-9313."/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@600;700&display=swap" rel="stylesheet"/>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useRef, useEffect, useCallback } = React;
 
-  <!-- Nav -->
-  <nav>
-    <div class="nav-inner">
-      <a href="#hero" class="nav-logo">
-        <img src="images/logo.jpg" alt="Slavik Workshop" class="nav-logo-img" />
-      </a>
-      <ul class="nav-links">
-        <li><a href="#benefits">Why Us</a></li>
-        <li><a href="#how-it-works">Process</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="#prices">Pricing</a></li>
-      </ul>
-      <a href="#contact" class="nav-cta">Free Estimate</a>
-    </div>
-  </nav>
+/* ── NAV ── */
+function Nav() {
+  const links = [['Home','#'],['Services','#services'],['Portfolio','#portfolio'],['Service Areas','#service-areas'],['Contact','#contact']];
+  const [menuOpen, setMenuOpen] = React.useState(false);
 
-  <!-- Hero -->
-  <section id="hero">
-    <div class="container hero-inner">
-      <div class="hero-content">
-        <span class="section-label">Kitchen Cabinet Painting · Boston, MA</span>
-        <h1>New kitchen look — <span>no replacement needed</span></h1>
-        <p>Professional cabinet painting for homeowners in Boston, Middlesex, Norfolk, Bristol & Plymouth County. Eco-friendly paints, zero mess, lasting results.</p>
-        <div class="hero-actions">
-          <a href="#contact" class="btn-primary">Get a Free Estimate</a>
-          <a href="https://www.instagram.com/slavik.workshop?igsh=MXZjN3BpdHhtcnU1dw%3D%3D&utm_source=qr" target="_blank" class="btn-secondary">See Our Work</a>
-        </div>
-      </div>
-      <div class="hero-image">
-        <img src="images/workshop-process.jpg" alt="Slavik Workshop — cabinet painting process" style="width:100%;height:100%;object-fit:cover;border-radius:20px;" />
-      </div>
-    </div>
-  </section>
+  React.useEffect(() => {
+    const onResize = () => { if (window.innerWidth > 768) setMenuOpen(false); };
+    window.addEventListener('resize', onResize);
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => { window.removeEventListener('resize', onResize); document.body.style.overflow = ''; };
+  }, [menuOpen]);
 
-  <!-- Benefits -->
-  <section id="benefits">
-    <div class="container">
-      <span class="section-label">Why Choose Us</span>
-      <h2>Slavik Workshop Advantages</h2>
-      <p class="subtitle">We show up on time, work clean, and stand behind every job with a 1-year guarantee.</p>
-      <div class="benefits-grid">
-        <div class="benefit-card">
-          <div class="benefit-icon">💰</div>
-          <h3>3–5x cheaper than replacing</h3>
-          <p>Refresh your kitchen for a fraction of the cost of new cabinets.</p>
-        </div>
-        <div class="benefit-card">
-          <div class="benefit-icon">🌿</div>
-          <h3>Eco-friendly, no odor</h3>
-          <p>We use low-VOC eco paints — safe for your family and pets.</p>
-        </div>
-        <div class="benefit-card">
-          <div class="benefit-icon">🛡️</div>
-          <h3>1-Year Guarantee</h3>
-          <p>We protect your furniture with film during work and guarantee our finish for 12 months.</p>
-        </div>
-        <div class="benefit-card">
-          <div class="benefit-icon">📸</div>
-          <h3>Free estimate by photo</h3>
-          <p>Send us a few photos and get a price right away — no visit needed to start.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  const close = () => setMenuOpen(false);
 
-  <!-- How it works -->
-  <section id="how-it-works">
-    <div class="container">
-      <span class="section-label">Process</span>
-      <h2>How It Works</h2>
-      <p class="subtitle">Three simple steps to your transformed kitchen.</p>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-text">
-            <h3>Send photos — get a quote</h3>
-            <p>Text us a few photos of your cabinets. We'll send back an estimate fast — no visit required.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-text">
-            <h3>We paint in our shop</h3>
-            <p>We remove the doors, paint them in our workshop with professional eco-grade materials, and protect your furniture with film.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-text">
-            <h3>Install & enjoy</h3>
-            <p>We reinstall everything and do a final walkthrough. Your kitchen looks brand new.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Video -->
-  <section id="video" style="background:var(--color-surface);padding:60px 24px;">
-    <div class="container" style="text-align:center;">
-      <span class="section-label">Watch Us Work</span>
-      <h2>See the process in action</h2>
-      <p class="subtitle" style="margin:0 auto 36px;">From raw cabinet doors to a flawless finish — inside our workshop.</p>
-      <video controls playsinline style="width:100%;max-width:720px;border-radius:16px;box-shadow:var(--shadow);">
-        <source src="images/workshop-video.mp4" type="video/mp4" />
-      </video>
-    </div>
-  </section>
-
-  <!-- Portfolio -->
-  <section id="portfolio">
-    <div class="container">
-      <span class="section-label">Our Work</span>
-      <h2>Portfolio</h2>
-      <p class="subtitle">Real before & after results. More photos on our <a href="https://www.instagram.com/slavik.workshop?igsh=MXZjN3BpdHhtcnU1dw%3D%3D&utm_source=qr" target="_blank" style="color:var(--color-accent);">Instagram</a>.</p>
-      <div class="portfolio-grid">
-        <div class="portfolio-item portfolio-item--full">
-          <div class="portfolio-pair">
-            <div>
-              <img src="images/before-1.jpg" alt="Kitchen cabinets before painting — dark espresso" class="portfolio-img" />
-              <div class="portfolio-label">Before</div>
-            </div>
-            <div>
-              <img src="images/after-1.jpg" alt="Kitchen cabinets after painting — white and grey-blue" class="portfolio-img" />
-              <div class="portfolio-label">After</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div style="text-align:center;margin-top:32px;">
-        <a href="https://www.instagram.com/slavik.workshop?igsh=MXZjN3BpdHhtcnU1dw%3D%3D&utm_source=qr" target="_blank" class="btn-secondary">
-          📸 See more on Instagram @slavik.workshop
+  return (
+    <>
+      <nav className="nav">
+        <a href="#" className="nav-logo">
+          <img src="logo.png" alt="Slavik Workshop"/>
+          <span className="nav-logo-name">
+            <span>Slavik</span>
+            <span>Workshop</span>
+          </span>
         </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Prices -->
-  <section id="prices">
-    <div class="container">
-      <span class="section-label">Pricing</span>
-      <h2>Transparent Pricing</h2>
-      <p class="subtitle">No hidden fees. Get your exact quote by sending us a photo.</p>
-      <div class="prices-grid">
-        <div class="price-card">
-          <h3>Basic</h3>
-          <div class="price">from $60 <span>/ door</span></div>
-          <ul>
-            <li>Single color paint</li>
-            <li>Matte finish</li>
-            <li>1-year guarantee</li>
-            <li>Turnaround: 5–7 days</li>
+        <ul className="nav-links">
+          {links.map(([label,href],i,arr)=>(
+            <React.Fragment key={label}>
+              <li><a href={href}>{label}</a></li>
+              {i<arr.length-1 && <li><span className="nav-sep">|</span></li>}
+            </React.Fragment>
+          ))}
+        </ul>
+        <div className="nav-right">
+          <a href="tel:5085949313" className="nav-phone">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 1.18 2 2 0 014 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+            508-594-9313
+          </a>
+          <a href="sms:5085949313" className="btn-nav">Text Us</a>
+          <button
+            className={`nav-burger${menuOpen ? ' nav-burger--open' : ''}`}
+            onClick={() => setMenuOpen(o => !o)}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+          >
+            <span className="nav-burger-bar"/>
+            <span className="nav-burger-bar"/>
+            <span className="nav-burger-bar"/>
+          </button>
+        </div>
+      </nav>
+      {ReactDOM.createPortal(
+        <>
+          <ul className={`mobile-menu${menuOpen ? ' mobile-menu--open' : ''}`}>
+            {links.map(([label,href]) => (
+              <li key={label}><a href={href} onClick={close}>{label}</a></li>
+            ))}
           </ul>
-          <a href="#contact" class="btn-primary">Get Estimate</a>
+          {menuOpen && <div className="mobile-menu-overlay" onClick={close}/>}
+        </>,
+        document.body
+      )}
+    </>
+  );
+}
+
+/* ── HERO SLIDER ── */
+function Hero() {
+  const [split, setSplit] = useState(50);
+  const rightRef = useRef(null);
+  const dragging = useRef(false);
+
+  const onMove = useCallback((clientX) => {
+    if (!dragging.current || !rightRef.current) return;
+    const rect = rightRef.current.getBoundingClientRect();
+    setSplit(Math.min(95, Math.max(5, (clientX - rect.left) / rect.width * 100)));
+  }, []);
+
+  useEffect(() => {
+    const up = () => { dragging.current = false; };
+    const mm = e => onMove(e.clientX);
+    const tm = e => { e.preventDefault(); onMove(e.touches[0].clientX); };
+    window.addEventListener('mouseup', up);
+    window.addEventListener('mousemove', mm);
+    window.addEventListener('touchend', up);
+    window.addEventListener('touchmove', tm, { passive: false });
+    return () => {
+      window.removeEventListener('mouseup', up);
+      window.removeEventListener('mousemove', mm);
+      window.removeEventListener('touchend', up);
+      window.removeEventListener('touchmove', tm);
+    };
+  }, [onMove]);
+
+  const start = e => { e.preventDefault(); dragging.current = true; };
+
+  return (
+    <div className="hero">
+      <div className="hero-left">
+        <div className="hero-eyebrow">✦ Boston, MA</div>
+        <h1 className="hero-h1">Professional<br/>Kitchen Cabinet<br/>Painting</h1>
+        <p className="hero-sub">Renew your kitchen with a stunning, durable finish. Fast &amp; eco-friendly.</p>
+        <a href="sms:5085949313" className="btn-hero">📷 Free Estimate by Photo</a>
+      </div>
+      <div className="hero-right" ref={rightRef} onMouseDown={start} onTouchStart={start}>
+        <div className="hero-before-img"/>
+        <div className="hero-after-img" style={{ clipPath: `inset(0 0 0 ${split}%)` }}/>
+        <div className="hero-divider" style={{ left: `${split}%` }}/>
+        <div className="hero-handle" style={{ left: `${split}%` }}>⟺</div>
+        {split > 10 && <div className="hero-lbl" style={{ left: 14 }}>Before</div>}
+        {split < 90 && <div className="hero-lbl" style={{ left: `calc(${split}% + 14px)` }}>After</div>}
+      </div>
+      <div className="hero-badges">
+        <div className="hero-badge">
+          <span className="hero-badge-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+            </svg>
+          </span>
+          <div>
+            <div className="hero-badge-title">Eco-Friendly Paint</div>
+            <div className="hero-badge-sub">Zero fumes · safe for kids &amp; pets</div>
+          </div>
         </div>
-        <div class="price-card featured">
-          <span class="badge">Most Popular</span>
-          <h3>Standard</h3>
-          <div class="price">from $85 <span>/ door</span></div>
-          <ul>
-            <li>Any color (custom match)</li>
-            <li>Matte or satin finish</li>
-            <li>1-year guarantee</li>
-            <li>Turnaround: 3–5 days</li>
-          </ul>
-          <a href="#contact" class="btn-primary">Get Estimate</a>
+        <div className="hero-badge">
+          <span className="hero-badge-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+          </span>
+          <div>
+            <div className="hero-badge-title">1-Year Warranty</div>
+            <div className="hero-badge-sub">Written guarantee on every job</div>
+          </div>
         </div>
-        <div class="price-card">
-          <h3>Full Kitchen</h3>
-          <div class="price">Custom <span>quote</span></div>
-          <ul>
-            <li>Cabinets + island</li>
-            <li>Hardware replacement</li>
-            <li>1-year guarantee</li>
-            <li>Free in-home estimate</li>
-          </ul>
-          <a href="#contact" class="btn-primary">Get Estimate</a>
+        <div className="hero-badge">
+          <span className="hero-badge-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2z"/>
+              <path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"/>
+              <path d="M4 15v-3a8 8 0 0 1 16 0v3"/>
+            </svg>
+          </span>
+          <div>
+            <div className="hero-badge-title">Licensed &amp; Insured</div>
+            <div className="hero-badge-sub">MA licensed · fully insured</div>
+          </div>
         </div>
       </div>
     </div>
-  </section>
+  );
+}
 
-  <!-- Services extra -->
-  <section id="services-extra" style="background:var(--color-surface); padding: 60px 24px;">
-    <div class="container">
-      <span class="section-label">Also Available</span>
-      <h2>Additional Services</h2>
-      <div class="benefits-grid" style="margin-top:36px;">
-        <div class="benefit-card">
-          <div class="benefit-icon">🏝️</div>
-          <h3>Kitchen Island Painting</h3>
-          <p>We paint islands separately — same quality finish, custom color to match or contrast your cabinets.</p>
+/* ── SERVICES ── */
+function Services() {
+  const steps = [
+    {
+      num: '01',
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+          <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+          <line x1="9" y1="12" x2="15" y2="12"/>
+          <line x1="9" y1="16" x2="13" y2="16"/>
+        </svg>
+      ),
+      title: 'Prep',
+      text: 'We protect your kitchen with drop cloths and tape, then clean, sand, and prime every surface for a flawless result.',
+    },
+    {
+      num: '02',
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+        </svg>
+      ),
+      title: 'Paint',
+      text: 'Two coats of premium eco-friendly paint applied with professional spray equipment for a smooth, factory-quality finish.',
+    },
+    {
+      num: '03',
+      icon: (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+      ),
+      title: 'Finish',
+      text: 'Final inspection, touch-ups, full cleanup — and a 1-year written warranty on every job we do.',
+    },
+  ];
+
+  const stepRefs = useRef([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('svc-step--visible'); }),
+      { threshold: 0.2 }
+    );
+    stepRefs.current.forEach(el => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section className="sec svc-sec" id="services">
+      <div className="sec-inner">
+        <div className="sec-tag">How It Works</div>
+        <h2 className="sec-h2">3 Simple Steps</h2>
+        <div className="svc-row">
+          {steps.map((s, i) => (
+            <React.Fragment key={s.title}>
+              <div
+                className="svc-step"
+                ref={el => stepRefs.current[i] = el}
+                style={{ animationDelay: `${i * 0.12}s` }}
+              >
+                <div className="svc-icon">{s.icon}</div>
+                <div className="svc-num">Step {s.num}</div>
+                <div className="svc-title">{s.title}</div>
+                <div className="svc-text">{s.text}</div>
+              </div>
+              {i < steps.length - 1 && (
+                <div className="svc-arrow">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="9 18 15 12 9 6"/>
+                  </svg>
+                </div>
+              )}
+            </React.Fragment>
+          ))}
         </div>
-        <div class="benefit-card">
-          <div class="benefit-icon">🔩</div>
-          <h3>Hardware Replacement</h3>
-          <p>New handles and soft-close hinges installed as part of your project for a complete refresh.</p>
+        <div className="svc-cta">
+          <a href="sms:5085949313" className="btn-hero">📷 Get Your Free Estimate</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── GALLERY ── */
+function Gallery() {
+  const projects = [
+    { from:'Oak',       to:'Matte White', afterBg:'#F5F3EE', material:'Solid wood doors' },
+    { from:'Oak',       to:'Matte White', afterBg:'#F8F6F1', material:'MDF doors'        },
+    { from:'Oak',       to:'Matte White', afterBg:'#FAFAF8', material:'Veneer doors'     },
+    { from:'Dark Wood', to:'Navy Blue',   afterBg:'#1E2D4A', material:'MDF doors'        },
+    { from:'Dark Wood', to:'Navy Blue',   afterBg:'#243352', material:'Solid wood'       },
+    { from:'Dark Wood', to:'Sage Green',  afterBg:'#6B7A54', material:'MDF doors'        },
+  ];
+  return (
+    <section className="sec gallery-sec" id="portfolio">
+      <div className="sec-inner">
+        <div className="sec-tag">Our Work</div>
+        <h2 className="sec-h2">Before &amp; After</h2>
+        <div className="ba-grid">
+          {projects.map((p,i)=>(
+            <div className="ba-card" key={i}>
+              <div className="ba-split">
+                <div className="ba-before-img">
+                  <span className="ba-img-lbl">Before</span>
+                </div>
+                <div className="ba-after-img" style={{ background:`linear-gradient(145deg,${p.afterBg}bb,${p.afterBg})` }}>
+                  <span className="ba-img-lbl">After</span>
+                </div>
+              </div>
+              <div className="ba-desc">
+                <div className="ba-trans">{p.from} → {p.to}</div>
+                <div className="ba-mat">{p.material}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── MAP + CONTACT ── */
+function MapContact() {
+  const [form, setForm] = useState({ name:'', email:'', phone:'' });
+  const set = k => e => setForm(f=>({...f,[k]:e.target.value}));
+  const areas = ['Boston','Middlesex County','Norfolk County','Bristol County','Plymouth County'];
+  return (
+    <div className="mc-wrap" id="service-areas">
+      <div className="mc-grid">
+        <div className="mc-left">
+          <div className="sec-tag" style={{textAlign:'left'}}>Coverage</div>
+          <h2 className="mc-h2">Service Areas</h2>
+          <div className="chips">
+            {areas.map(a=><span className="chip" key={a}>{a}</span>)}
+          </div>
+          <iframe
+            className="mc-map"
+            title="Service Area"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d376803.6!2d-71.38!3d42.2!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e3652d0d3d311b%3A0x787cbf240162e8a0!2sBoston%2C%20MA!5e0!3m2!1sen!2sus!4v1699000000000"
+            allowFullScreen loading="lazy"
+          />
+        </div>
+        <div className="mc-right" id="contact">
+          <div className="mc-head">
+            <div className="mc-head-title">Get a Free Estimate</div>
+            <div className="mc-head-sub">Text us photos — we reply same day</div>
+          </div>
+          <div className="mc-form">
+            {[['Name','name'],['Email','email'],['Phone','phone']].map(([label,key])=>(
+              <div key={key}>
+                <div className="f-lbl">{label}</div>
+                <input className="f-inp" placeholder={label} value={form[key]} onChange={set(key)}/>
+              </div>
+            ))}
+            <div>
+              <div className="f-lbl">Upload Photos</div>
+              <div className="f-upload">📷 Click to upload cabinet photos<br/><span style={{fontSize:11,opacity:.7}}>JPG, PNG — up to 10 MB</span></div>
+            </div>
+            <a href="sms:5085949313" className="btn-submit">Submit Request</a>
+          </div>
         </div>
       </div>
     </div>
-  </section>
+  );
+}
 
-  <!-- Contact -->
-  <section id="contact">
-    <div class="container">
-      <span class="section-label" style="background:rgba(255,255,255,0.2);color:#fff;">Contact</span>
-      <h2>Get Your Free Estimate</h2>
-      <p class="subtitle">Text us a few photos and we'll send a quote back. Fast, no commitment.</p>
-      <div class="contact-inner">
-        <div class="contact-info">
-          <p>Serving Boston, Middlesex, Norfolk, Bristol & Plymouth County, MA.</p>
-          <div class="contact-detail">
-            <span class="icon">📱</span>
-            <a href="sms:5085949313" style="color:#fff;">(508) 594-9313 — Text us</a>
-          </div>
-          <div class="contact-detail">
-            <span class="icon">📸</span>
-            <a href="https://www.instagram.com/slavik.workshop?igsh=MXZjN3BpdHhtcnU1dw%3D%3D&utm_source=qr" target="_blank" style="color:#fff;">@slavik.workshop on Instagram</a>
-          </div>
-          <div class="contact-detail">
-            <span class="icon">🕐</span>
-            <span>Mon–Sat, 8am–7pm</span>
-          </div>
-          <div class="contact-detail">
-            <span class="icon">✅</span>
-            <span>Licensed & Insured</span>
-          </div>
-        </div>
-        <div>
-          <form id="contact-form">
-            <input type="text" name="name" placeholder="Your name" required />
-            <input type="tel" name="phone" placeholder="Phone number" required />
-            <textarea name="message" placeholder="Tell us about your kitchen (number of doors, current color, desired color)"></textarea>
-            <button type="submit" class="btn-submit">Send Request</button>
-            <p class="form-note">By submitting you agree to be contacted by SMS or phone.</p>
-          </form>
-          <div id="form-success" class="form-success">
-            ✅ Request received! We'll get back to you shortly.
-          </div>
+/* ── FOOTER ── */
+function Footer() {
+  const links = [['Home','#'],['Services','#services'],['Portfolio','#portfolio'],['Service Areas','#service-areas'],['Contact','#contact']];
+  return (
+    <footer className="footer">
+      <div className="ft-top">
+        <a href="#" className="ft-logo">
+          <img src="logo.png" alt="Slavik Workshop"/>
+          <span className="ft-logo-name">Slavik <em>Workshop</em></span>
+        </a>
+        <ul className="ft-links">
+          {links.map(([label,href],i,arr)=>(
+            <React.Fragment key={label}>
+              <li><a href={href}>{label}</a></li>
+              {i<arr.length-1 && <li><span className="nav-sep">|</span></li>}
+            </React.Fragment>
+          ))}
+        </ul>
+        <div className="ft-social">
+          <a href="https://instagram.com/slavik.workshop" target="_blank" rel="noopener" title="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="#" title="Facebook">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="#" title="YouTube">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+          </a>
         </div>
       </div>
-    </div>
-  </section>
+      <div className="ft-copy">
+        © 2024 Slavik Workshop. Licensed &amp; Insured. <a href="tel:5085949313">(508) 594-9313</a>
+      </div>
+    </footer>
+  );
+}
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 Slavik Workshop · Kitchen Cabinet Painting · Boston, MA · <a href="sms:5085949313" style="color:rgba(255,255,255,0.5);">(508) 594-9313</a></p>
-  </footer>
+/* ── APP ── */
+function App() {
+  return (
+    <>
+      <Nav/>
+      <Hero/>
+      <Services/>
+      <Gallery/>
+      <MapContact/>
+      <Footer/>
+      <a href="sms:5085949313" className="sms-btn" title="Text us">💬</a>
+    </>
+  );
+}
 
-  <script src="js/main.js"></script>
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
 </body>
 </html>

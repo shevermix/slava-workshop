@@ -1,3 +1,4 @@
-.DS_Store
-Thumbs.db
-*.log
+# Exclude all site variant folders — only root files are published
+Сайт*/
+Resorses_/
+images/
