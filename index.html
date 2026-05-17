@@ -98,7 +98,7 @@ function Hero() {
   useEffect(() => {
     const up = () => { dragging.current = false; };
     const mm = e => onMove(e.clientX);
-    const tm = e => { e.preventDefault(); onMove(e.touches[0].clientX); };
+    const tm = e => { if (!dragging.current) return; e.preventDefault(); onMove(e.touches[0].clientX); };
     window.addEventListener('mouseup', up);
     window.addEventListener('mousemove', mm);
     window.addEventListener('touchend', up);
@@ -111,7 +111,7 @@ function Hero() {
     };
   }, [onMove]);
 
-  const start = e => { e.preventDefault(); dragging.current = true; };
+  const start = e => { dragging.current = true; };
 
   return (
     <div className="hero">

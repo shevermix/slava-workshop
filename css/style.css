@@ -39,7 +39,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
 .btn-hero:hover{background:var(--brand-d);transform:translateY(-1px)}
 
 /* RIGHT — before/after photo slider */
-.hero-right{flex:1;position:relative;overflow:hidden;cursor:ew-resize}
+.hero-right{flex:1;position:relative;overflow:hidden;cursor:ew-resize;touch-action:pan-y}
 .hero-before-img{position:absolute;inset:0;background:url('../kitch_bef-1.jpg') left center/100% 100% no-repeat;background-color:#7A5030}
 .hero-after-img{position:absolute;inset:0;background:url('../kitch_aft-1.jpg') right center/100% 100% no-repeat;background-color:#F5F3EE}
 .hero-divider{position:absolute;top:0;height:100%;width:3px;background:#fff;box-shadow:0 0 16px rgba(0,0,0,.4);z-index:10;transform:translateX(-50%)}
