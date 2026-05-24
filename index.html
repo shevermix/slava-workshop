@@ -11,6 +11,8 @@
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
@@ -343,8 +345,58 @@ function MapContact() {
   const [form, setForm] = useState({ name:'', email:'', phone:'' });
   const [photos, setPhotos] = useState([]);
   const fileRef = useRef(null);
+  const mapDivRef = useRef(null);
+  const mapInstanceRef = useRef(null);
   const set = k => e => setForm(f=>({...f,[k]:e.target.value}));
   const areas = ['Boston','Middlesex County','Norfolk County','Bristol County','Plymouth County'];
+
+  useEffect(() => {
+    if (!mapDivRef.current || mapInstanceRef.current) return;
+    const map = L.map(mapDivRef.current, {
+      center: [42.05, -71.1],
+      zoom: 9,
+      scrollWheelZoom: false,
+      attributionControl: true,
+    });
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://osm.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 14,
+    }).addTo(map);
+    mapInstanceRef.current = map;
+    const serviceCounties = new Set(['Suffolk County','Middlesex County','Norfolk County','Bristol County','Plymouth County']);
+    const activeStyle = { fillColor: '#1b5176', fillOpacity: 0.45, color: '#0d3a57', weight: 2.5 };
+    const activeHoverStyle = { fillColor: '#2271b3', fillOpacity: 0.62, color: '#0d3a57', weight: 3 };
+    const inactiveStyle = { fillColor: '#d8dde2', fillOpacity: 0.18, color: '#aab4bc', weight: 1 };
+    const censusUrl = 'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/1/query?where=STATE%3D%2725%27&outFields=NAME&returnGeometry=true&f=geojson';
+    fetch(censusUrl)
+      .then(r => r.json())
+      .then(data => {
+        if (!mapInstanceRef.current) return;
+        L.geoJSON(data, {
+          style: feature => {
+            const name = (feature.properties.NAME || '').trim();
+            return serviceCounties.has(name) ? activeStyle : inactiveStyle;
+          },
+          onEachFeature: (feature, layer) => {
+            const name = (feature.properties.NAME || '').trim();
+            const active = serviceCounties.has(name);
+            if (active) {
+              const label = name === 'Suffolk County' ? 'Boston / Suffolk' : name.replace(' County', '');
+              layer.bindTooltip(label, { permanent: false, sticky: true, className: 'map-county-label' });
+              layer.on('mouseover', () => layer.setStyle(activeHoverStyle));
+              layer.on('mouseout', () => layer.setStyle(activeStyle));
+            }
+          },
+        }).addTo(map);
+
+      })
+      .catch(() => {});
+    return () => {
+      if (mapInstanceRef.current) { mapInstanceRef.current.remove(); mapInstanceRef.current = null; }
+    };
+  }, []);
+
   return (
     <div className="mc-wrap" id="service-areas">
       <div className="mc-grid">
@@ -354,12 +406,7 @@ function MapContact() {
           <div className="chips">
             {areas.map(a=><span className="chip" key={a}>{a}</span>)}
           </div>
-          <iframe
-            className="mc-map"
-            title="Service Area"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d376803.6!2d-71.38!3d42.2!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e3652d0d3d311b%3A0x787cbf240162e8a0!2sBoston%2C%20MA!5e0!3m2!1sen!2sus!4v1699000000000"
-            allowFullScreen loading="lazy"
-          />
+          <div ref={mapDivRef} className="mc-map" style={{borderRadius:'8px',overflow:'hidden'}}/>
         </div>
         <div className="mc-right" id="contact">
           <div className="mc-head">
