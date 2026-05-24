@@ -356,13 +356,13 @@ function MapContact() {
       center: [42.05, -71.1],
       zoom: 9,
       scrollWheelZoom: false,
-      attributionControl: true,
+      attributionControl: false,
     });
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://osm.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
       subdomains: 'abcd',
       maxZoom: 14,
     }).addTo(map);
+    L.control.attribution({ prefix: '© <a href="https://osm.org/copyright">OSM</a> © <a href="https://carto.com/">CARTO</a>' }).addTo(map);
     mapInstanceRef.current = map;
     const serviceCounties = new Set(['Suffolk County','Middlesex County','Norfolk County','Bristol County','Plymouth County']);
     const activeStyle = { fillColor: '#1b5176', fillOpacity: 0.45, color: '#0d3a57', weight: 2.5 };
