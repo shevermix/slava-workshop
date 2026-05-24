@@ -89,6 +89,8 @@ function Hero() {
   const [active, setActive] = useState(false);
   const rightRef = useRef(null);
   const dragging = useRef(false);
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
 
   useEffect(() => {
     const t1 = setTimeout(() => setSplit(28), 700);
@@ -103,9 +105,23 @@ function Hero() {
   }, []);
 
   useEffect(() => {
-    const up = () => { dragging.current = false; setActive(false); };
+    const up = () => {
+      dragging.current = false; setActive(false);
+      touchStartX.current = null; touchStartY.current = null;
+    };
     const mm = e => onMove(e.clientX);
-    const tm = e => { if (!dragging.current) return; e.preventDefault(); onMove(e.touches[0].clientX); };
+    const tm = e => {
+      if (touchStartX.current === null) return;
+      const dx = Math.abs(e.touches[0].clientX - touchStartX.current);
+      const dy = Math.abs(e.touches[0].clientY - touchStartY.current);
+      if (!dragging.current) {
+        if (dx > dy && dx > 5) { dragging.current = true; setActive(true); }
+        else if (dy > dx) { touchStartX.current = null; return; }
+        else return;
+      }
+      e.preventDefault();
+      onMove(e.touches[0].clientX);
+    };
     window.addEventListener('mouseup', up);
     window.addEventListener('mousemove', mm);
     window.addEventListener('touchend', up);
@@ -119,6 +135,14 @@ function Hero() {
   }, [onMove]);
 
   const start = e => { dragging.current = true; setActive(true); };
+  const startTouch = e => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+  const onKeyDown = e => {
+    if (e.key === 'ArrowLeft') setSplit(s => Math.max(5, s - 5));
+    if (e.key === 'ArrowRight') setSplit(s => Math.min(95, s + 5));
+  };
   const tr = active ? 'none' : 'left 0.5s cubic-bezier(0.4,0,0.2,1), clip-path 0.5s cubic-bezier(0.4,0,0.2,1)';
 
   return (
@@ -129,7 +153,10 @@ function Hero() {
         <p className="hero-sub">Renew your kitchen with a stunning, durable finish. Fast &amp; eco-friendly.</p>
         <a href="sms:5085949313" className="btn-hero">📷 Free Estimate by Photo</a>
       </div>
-      <div className="hero-right" ref={rightRef} onMouseDown={start} onTouchStart={start}>
+      <div className="hero-right" ref={rightRef} onMouseDown={start} onTouchStart={startTouch}
+        tabIndex={0} role="slider" aria-label="Before/After slider"
+        aria-valuemin={5} aria-valuemax={95} aria-valuenow={Math.round(split)}
+        onKeyDown={onKeyDown}>
         <div className="hero-before-img"/>
         <div className="hero-after-img" style={{ clipPath: `inset(0 0 0 ${split}%)`, transition: tr }}/>
         <div className="hero-divider" style={{ left: `${split}%`, transition: tr }}/>
