@@ -139,6 +139,8 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
 .nav-burger--open .nav-burger-bar:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .nav-burger--open .nav-burger-bar:nth-child(2){opacity:0;width:0}
 .nav-burger--open .nav-burger-bar:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none}
+.mobile-menu-overlay{display:none}
 
 /* ── FLOAT ── */
 .sms-btn{position:fixed;bottom:24px;right:24px;z-index:999;width:54px;height:54px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 20px rgba(27,81,118,.4);text-decoration:none;transition:background .2s,transform .2s}
