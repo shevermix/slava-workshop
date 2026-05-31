@@ -25,8 +25,8 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
 .nav-phone{color:var(--brand);font-weight:700;font-size:15px;text-decoration:none;display:flex;align-items:center;gap:6px}
 .btn-nav{background:var(--brand);color:#fff;padding:10px 22px;border-radius:6px;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;transition:background .2s;white-space:nowrap}
 .btn-nav:hover{background:var(--brand-d)}
-.nav-phone-mobile{display:none;color:var(--brand);width:38px;height:38px;border-radius:50%;align-items:center;justify-content:center;border:1.5px solid var(--brand);flex-shrink:0;text-decoration:none;transition:background .2s}
-.nav-phone-mobile:hover{background:var(--brand-l)}
+.nav-phone-mobile,.nav-sms-mobile{display:none;color:var(--brand);width:38px;height:38px;border-radius:50%;align-items:center;justify-content:center;border:1.5px solid var(--brand);flex-shrink:0;text-decoration:none;transition:background .2s}
+.nav-phone-mobile:hover,.nav-sms-mobile:hover{background:var(--brand-l)}
 
 /* ── HERO ── */
 .hero{position:relative;height:560px;overflow:hidden;user-select:none;display:flex}
@@ -166,7 +166,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
   .nav-burger{display:flex}
   .nav-links{display:none}
   .nav-phone,.btn-nav{display:none}
-  .nav-phone-mobile{display:flex}
+  .nav-phone-mobile,.nav-sms-mobile{display:flex}
   .nav-sep{display:none}
 
   /* Mobile menu portal (rendered to document.body, no backdrop-filter parent) */
