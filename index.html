@@ -345,26 +345,36 @@ function MapContact() {
   const [form, setForm] = useState({ name:'', email:'', phone:'' });
   const [photos, setPhotos] = useState([]);
   const [mapFs, setMapFs] = useState(false);
+  const [mapFsClosing, setMapFsClosing] = useState(false);
   const fileRef = useRef(null);
   const mapDivRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const set = k => e => setForm(f=>({...f,[k]:e.target.value}));
   const areas = ['Boston','Middlesex County','Norfolk County','Bristol County','Plymouth County'];
 
-  const toggleFs = () => {
-    setMapFs(fs => {
-      const next = !fs;
-      document.body.style.overflow = next ? 'hidden' : '';
-      setTimeout(() => { if (mapInstanceRef.current) mapInstanceRef.current.invalidateSize(); }, 320);
-      return next;
-    });
+  const openFs = () => {
+    setMapFs(true);
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => { if (mapInstanceRef.current) mapInstanceRef.current.invalidateSize(); }, 350);
   };
 
+  const closeFs = () => {
+    setMapFsClosing(true);
+    setTimeout(() => {
+      setMapFs(false);
+      setMapFsClosing(false);
+      document.body.style.overflow = '';
+      setTimeout(() => { if (mapInstanceRef.current) mapInstanceRef.current.invalidateSize(); }, 50);
+    }, 280);
+  };
+
+  const toggleFs = () => mapFs ? closeFs() : openFs();
+
   useEffect(() => {
-    const onKey = e => { if (e.key === 'Escape') { setMapFs(false); document.body.style.overflow = ''; } };
+    const onKey = e => { if (e.key === 'Escape' && mapFs) closeFs(); };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, []);
+  }, [mapFs]);
 
   useEffect(() => {
     if (!mapDivRef.current || mapInstanceRef.current) return;
@@ -422,7 +432,7 @@ function MapContact() {
           <div className="chips">
             {areas.map(a=><span className="chip" key={a}>{a}</span>)}
           </div>
-          <div className={`mc-map-wrap${mapFs ? ' mc-map-wrap--fs' : ''}`}>
+          <div className={`mc-map-wrap${mapFs ? ' mc-map-wrap--fs' : ''}${mapFsClosing ? ' mc-map-wrap--fs-closing' : ''}`}>
             <div ref={mapDivRef} className="mc-map"/>
             <button className="map-fs-btn" onClick={toggleFs} title={mapFs ? 'Закрыть' : 'На весь экран'}>
               {mapFs
