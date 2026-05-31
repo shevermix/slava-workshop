@@ -1,0 +1,64 @@
+backend:
+  name: git-gateway
+  branch: master
+
+media_folder: "."
+public_folder: "."
+
+collections:
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "site"
+        label: "All Content"
+        file: "content.json"
+        format: "json"
+        fields:
+
+          - label: "Contacts"
+            name: "site"
+            widget: "object"
+            fields:
+              - { label: "Company name",            name: "name",          widget: "string" }
+              - { label: "Phone (digits only)",      name: "phone",         widget: "string", hint: "Example: 5085949313" }
+              - { label: "Phone (display format)",   name: "phone_display", widget: "string", hint: "Example: 508-594-9313" }
+              - { label: "Instagram URL",            name: "instagram",     widget: "string" }
+
+          - label: "Hero section"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Location tag (top badge)", name: "eyebrow",  widget: "string" }
+              - { label: "Headline (use \\n for line break)", name: "headline", widget: "string" }
+              - { label: "Subtext",                  name: "subtext",  widget: "text"   }
+              - { label: "Button text",              name: "cta",      widget: "string" }
+
+          - label: "Badges (3 icons under hero)"
+            name: "badges"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "sub", widget: "string" }
+
+          - label: "How It Works (3 steps)"
+            name: "services"
+            widget: "list"
+            fields:
+              - { label: "Step number", name: "num",   widget: "string" }
+              - { label: "Step title",  name: "title", widget: "string" }
+              - { label: "Description", name: "text",  widget: "text"   }
+
+          - label: "Service Areas"
+            name: "areas"
+            widget: "list"
+            field:
+              label: "Area name"
+              name: "area"
+              widget: "string"
+
+          - label: "Contact form"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Form title",    name: "title", widget: "string" }
+              - { label: "Form subtitle", name: "sub",   widget: "string" }

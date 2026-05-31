@@ -1,0 +1,41 @@
+{
+  "site": {
+    "name": "Slavik Workshop",
+    "phone": "5085949313",
+    "phone_display": "508-594-9313",
+    "instagram": "https://instagram.com/slavik.workshop"
+  },
+  "hero": {
+    "eyebrow": "Boston, MA",
+    "headline": "Professional\nKitchen Cabinet\nPainting",
+    "subtext": "Renew your kitchen with a stunning, durable finish. Fast & eco-friendly.",
+    "cta": "📷 Free Estimate by Photo"
+  },
+  "badges": [
+    { "title": "Eco-Friendly Paint", "sub": "Zero fumes · safe for kids & pets" },
+    { "title": "1-Year Warranty",    "sub": "Written guarantee on every job"     },
+    { "title": "Licensed & Insured", "sub": "MA licensed · fully insured"        }
+  ],
+  "services": [
+    {
+      "num": "01",
+      "title": "Prep",
+      "text": "We protect your kitchen with drop cloths and tape, then clean, sand, and prime every surface for a flawless result."
+    },
+    {
+      "num": "02",
+      "title": "Paint",
+      "text": "Two coats of premium eco-friendly paint applied with professional spray equipment for a smooth, factory-quality finish."
+    },
+    {
+      "num": "03",
+      "title": "Finish",
+      "text": "Final inspection, touch-ups, full cleanup — and a 1-year written warranty on every job we do."
+    }
+  ],
+  "areas": ["Boston", "Middlesex County", "Norfolk County", "Bristol County", "Plymouth County"],
+  "contact": {
+    "title": "Get a Free Estimate",
+    "sub": "Text us photos — we reply same day"
+  }
+}

@@ -14,14 +14,50 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <link rel="stylesheet" href="css/style.css"/>
+  <!-- Netlify Identity (needed for Decap CMS login redirect) -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on('init', function(user) {
+        if (!user) {
+          window.netlifyIdentity.on('login', function() {
+            document.location.href = '/admin/';
+          });
+        }
+      });
+    }
+  </script>
 </head>
 <body>
 <div id="root"></div>
 <script type="text/babel">
-const { useState, useRef, useEffect, useCallback } = React;
+const { useState, useRef, useEffect, useCallback, createContext, useContext } = React;
+
+/* ── CONTENT CONTEXT ── */
+const Ctx = createContext(null);
+const useContent = () => useContext(Ctx);
+
+/* Default content (fallback if fetch fails) */
+const DEFAULT = {
+  site: { name:'Slavik Workshop', phone:'5085949313', phone_display:'508-594-9313', instagram:'https://instagram.com/slavik.workshop' },
+  hero: { eyebrow:'Boston, MA', headline:'Professional\nKitchen Cabinet\nPainting', subtext:'Renew your kitchen with a stunning, durable finish. Fast & eco-friendly.', cta:'📷 Free Estimate by Photo' },
+  badges: [
+    { title:'Eco-Friendly Paint', sub:'Zero fumes · safe for kids & pets' },
+    { title:'1-Year Warranty',    sub:'Written guarantee on every job'     },
+    { title:'Licensed & Insured', sub:'MA licensed · fully insured'        },
+  ],
+  services: [
+    { num:'01', title:'Prep',   text:'We protect your kitchen with drop cloths and tape, then clean, sand, and prime every surface for a flawless result.' },
+    { num:'02', title:'Paint',  text:'Two coats of premium eco-friendly paint applied with professional spray equipment for a smooth, factory-quality finish.' },
+    { num:'03', title:'Finish', text:'Final inspection, touch-ups, full cleanup — and a 1-year written warranty on every job we do.' },
+  ],
+  areas: ['Boston','Middlesex County','Norfolk County','Bristol County','Plymouth County'],
+  contact: { title:'Get a Free Estimate', sub:'Text us photos — we reply same day' },
+};
 
 /* ── NAV ── */
 function Nav() {
+  const { site } = useContent();
   const links = [['Home','#'],['Services','#services'],['Portfolio','#portfolio'],['Service Areas','#service-areas'],['Contact','#contact']];
   const [menuOpen, setMenuOpen] = React.useState(false);
 
@@ -38,7 +74,7 @@ function Nav() {
     <>
       <nav className="nav">
         <a href="#" className="nav-logo">
-          <img src="logo.png" alt="Slavik Workshop"/>
+          <img src="logo.png" alt={site.name}/>
           <span className="nav-logo-name">
             <span>Slavik</span>
             <span>Workshop</span>
@@ -53,15 +89,15 @@ function Nav() {
           ))}
         </ul>
         <div className="nav-right">
-          <a href="tel:5085949313" className="nav-phone">
+          <a href={`tel:${site.phone}`} className="nav-phone">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 1.18 2 2 0 014 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
-            508-594-9313
+            {site.phone_display}
           </a>
-          <a href="sms:5085949313" className="btn-nav">Text Us</a>
-          <a href="tel:5085949313" className="nav-phone-mobile" aria-label="Call us">
+          <a href={`sms:${site.phone}`} className="btn-nav">Text Us</a>
+          <a href={`tel:${site.phone}`} className="nav-phone-mobile" aria-label="Call us">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 1.18 2 2 0 014 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
           </a>
-          <a href="sms:5085949313" className="nav-sms-mobile" aria-label="Text us">
+          <a href={`sms:${site.phone}`} className="nav-sms-mobile" aria-label="Text us">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
           </a>
           <button
@@ -93,6 +129,7 @@ function Nav() {
 
 /* ── HERO SLIDER ── */
 function Hero() {
+  const { hero, badges, site } = useContent();
   const [split, setSplit] = useState(50);
   const [active, setActive] = useState(false);
   const rightRef = useRef(null);
@@ -142,7 +179,7 @@ function Hero() {
     };
   }, [onMove]);
 
-  const start = e => { dragging.current = true; setActive(true); };
+  const start = () => { dragging.current = true; setActive(true); };
   const startTouch = e => {
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
@@ -153,13 +190,23 @@ function Hero() {
   };
   const tr = active ? 'none' : 'left 0.5s cubic-bezier(0.4,0,0.2,1), clip-path 0.5s cubic-bezier(0.4,0,0.2,1)';
 
+  const badgeIcons = [
+    <svg key="eco" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>,
+    <svg key="war" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>,
+    <svg key="lic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2z"/><path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"/><path d="M4 15v-3a8 8 0 0 1 16 0v3"/></svg>,
+  ];
+
   return (
     <div className="hero">
       <div className="hero-left">
-        <div className="hero-eyebrow">✦ Boston, MA</div>
-        <h1 className="hero-h1">Professional<br/>Kitchen Cabinet<br/>Painting</h1>
-        <p className="hero-sub">Renew your kitchen with a stunning, durable finish. Fast &amp; eco-friendly.</p>
-        <a href="sms:5085949313" className="btn-hero">📷 Free Estimate by Photo</a>
+        <div className="hero-eyebrow">✦ {hero.eyebrow}</div>
+        <h1 className="hero-h1">
+          {hero.headline.split('\n').map((line, i, arr) => (
+            <React.Fragment key={i}>{line}{i < arr.length - 1 && <br/>}</React.Fragment>
+          ))}
+        </h1>
+        <p className="hero-sub">{hero.subtext}</p>
+        <a href={`sms:${site.phone}`} className="btn-hero">{hero.cta}</a>
       </div>
       <div className="hero-right" ref={rightRef} onMouseDown={start} onTouchStart={startTouch}
         tabIndex={0} role="slider" aria-label="Before/After slider"
@@ -177,43 +224,15 @@ function Hero() {
         {split < 90 && <div className="hero-lbl" style={{ left: `calc(${split}% + 14px)`, transition: tr }}>After</div>}
       </div>
       <div className="hero-badges">
-        <div className="hero-badge">
-          <span className="hero-badge-icon">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/>
-              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
-            </svg>
-          </span>
-          <div>
-            <div className="hero-badge-title">Eco-Friendly Paint</div>
-            <div className="hero-badge-sub">Zero fumes · safe for kids &amp; pets</div>
+        {badges.map((b, i) => (
+          <div className="hero-badge" key={i}>
+            <span className="hero-badge-icon">{badgeIcons[i]}</span>
+            <div>
+              <div className="hero-badge-title">{b.title}</div>
+              <div className="hero-badge-sub">{b.sub}</div>
+            </div>
           </div>
-        </div>
-        <div className="hero-badge">
-          <span className="hero-badge-icon">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              <path d="m9 12 2 2 4-4"/>
-            </svg>
-          </span>
-          <div>
-            <div className="hero-badge-title">1-Year Warranty</div>
-            <div className="hero-badge-sub">Written guarantee on every job</div>
-          </div>
-        </div>
-        <div className="hero-badge">
-          <span className="hero-badge-icon">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2z"/>
-              <path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"/>
-              <path d="M4 15v-3a8 8 0 0 1 16 0v3"/>
-            </svg>
-          </span>
-          <div>
-            <div className="hero-badge-title">Licensed &amp; Insured</div>
-            <div className="hero-badge-sub">MA licensed · fully insured</div>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );
@@ -221,41 +240,12 @@ function Hero() {
 
 /* ── SERVICES ── */
 function Services() {
-  const steps = [
-    {
-      num: '01',
-      icon: (
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
-          <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
-          <line x1="9" y1="12" x2="15" y2="12"/>
-          <line x1="9" y1="16" x2="13" y2="16"/>
-        </svg>
-      ),
-      title: 'Prep',
-      text: 'We protect your kitchen with drop cloths and tape, then clean, sand, and prime every surface for a flawless result.',
-    },
-    {
-      num: '02',
-      icon: (
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
-        </svg>
-      ),
-      title: 'Paint',
-      text: 'Two coats of premium eco-friendly paint applied with professional spray equipment for a smooth, factory-quality finish.',
-    },
-    {
-      num: '03',
-      icon: (
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          <path d="m9 12 2 2 4-4"/>
-        </svg>
-      ),
-      title: 'Finish',
-      text: 'Final inspection, touch-ups, full cleanup — and a 1-year written warranty on every job we do.',
-    },
+  const { services, site } = useContent();
+
+  const icons = [
+    <svg key="prep" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>,
+    <svg key="paint" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>,
+    <svg key="fin" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>,
   ];
 
   const stepRefs = useRef([]);
@@ -275,19 +265,19 @@ function Services() {
         <div className="sec-tag">How It Works</div>
         <h2 className="sec-h2">3 Simple Steps</h2>
         <div className="svc-row">
-          {steps.map((s, i) => (
-            <React.Fragment key={s.title}>
+          {services.map((s, i) => (
+            <React.Fragment key={i}>
               <div
                 className="svc-step"
                 ref={el => stepRefs.current[i] = el}
                 style={{ animationDelay: `${i * 0.12}s` }}
               >
-                <div className="svc-icon">{s.icon}</div>
+                <div className="svc-icon">{icons[i]}</div>
                 <div className="svc-num">Step {s.num}</div>
                 <div className="svc-title">{s.title}</div>
                 <div className="svc-text">{s.text}</div>
               </div>
-              {i < steps.length - 1 && (
+              {i < services.length - 1 && (
                 <div className="svc-arrow">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="9 18 15 12 9 6"/>
@@ -298,7 +288,7 @@ function Services() {
           ))}
         </div>
         <div className="svc-cta">
-          <a href="sms:5085949313" className="btn-hero">📷 Get Your Free Estimate</a>
+          <a href={`sms:${site.phone}`} className="btn-hero">📷 Get Your Free Estimate</a>
         </div>
       </div>
     </section>
@@ -345,6 +335,7 @@ function Gallery() {
 
 /* ── MAP + CONTACT ── */
 function MapContact() {
+  const { areas, contact, site } = useContent();
   const [form, setForm] = useState({ name:'', email:'', phone:'' });
   const [photos, setPhotos] = useState([]);
   const [mapFs, setMapFs] = useState(false);
@@ -353,7 +344,6 @@ function MapContact() {
   const mapDivRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const set = k => e => setForm(f=>({...f,[k]:e.target.value}));
-  const areas = ['Boston','Middlesex County','Norfolk County','Bristol County','Plymouth County'];
 
   const openFs = () => {
     setMapFs(true);
@@ -418,7 +408,6 @@ function MapContact() {
             }
           },
         }).addTo(map);
-
       })
       .catch(() => {});
     return () => {
@@ -437,7 +426,7 @@ function MapContact() {
           </div>
           <div className={`mc-map-wrap${mapFs ? ' mc-map-wrap--fs' : ''}${mapFsClosing ? ' mc-map-wrap--fs-closing' : ''}`}>
             <div ref={mapDivRef} className="mc-map"/>
-            <button className="map-fs-btn" onClick={toggleFs} title={mapFs ? 'Закрыть' : 'На весь экран'}>
+            <button className="map-fs-btn" onClick={toggleFs} title={mapFs ? 'Close' : 'Fullscreen'}>
               {mapFs
                 ? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 : <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
@@ -447,8 +436,8 @@ function MapContact() {
         </div>
         <div className="mc-right" id="contact">
           <div className="mc-head">
-            <div className="mc-head-title">Get a Free Estimate</div>
-            <div className="mc-head-sub">Text us photos — we reply same day</div>
+            <div className="mc-head-title">{contact.title}</div>
+            <div className="mc-head-sub">{contact.sub}</div>
           </div>
           <div className="mc-form">
             {[['Name','name'],['Email','email'],['Phone','phone']].map(([label,key])=>(
@@ -465,7 +454,7 @@ function MapContact() {
                 <br/><span style={{fontSize:11,opacity:.7}}>JPG, PNG — up to 10 MB</span>
               </div>
             </div>
-            <a href="sms:5085949313" className="btn-submit">Submit Request</a>
+            <a href={`sms:${site.phone}`} className="btn-submit">Submit Request</a>
           </div>
         </div>
       </div>
@@ -475,12 +464,13 @@ function MapContact() {
 
 /* ── FOOTER ── */
 function Footer() {
+  const { site } = useContent();
   const links = [['Home','#'],['Services','#services'],['Portfolio','#portfolio'],['Service Areas','#service-areas'],['Contact','#contact']];
   return (
     <footer className="footer">
       <div className="ft-top">
         <a href="#" className="ft-logo">
-          <img src="logo.png" alt="Slavik Workshop"/>
+          <img src="logo.png" alt={site.name}/>
           <span className="ft-logo-name">Slavik <em>Workshop</em></span>
         </a>
         <ul className="ft-links">
@@ -492,7 +482,7 @@ function Footer() {
           ))}
         </ul>
         <div className="ft-social">
-          <a href="https://instagram.com/slavik.workshop" target="_blank" rel="noopener" title="Instagram">
+          <a href={site.instagram} target="_blank" rel="noopener" title="Instagram">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
           </a>
           <a href="#" title="Facebook">
@@ -504,7 +494,7 @@ function Footer() {
         </div>
       </div>
       <div className="ft-copy">
-        © {new Date().getFullYear()} Slavik Workshop. Licensed &amp; Insured. <a href="tel:5085949313">(508) 594-9313</a>
+        © {new Date().getFullYear()} {site.name}. Licensed &amp; Insured. <a href={`tel:${site.phone}`}>({site.phone.slice(0,3)}) {site.phone.slice(3,6)}-{site.phone.slice(6)}</a>
       </div>
     </footer>
   );
@@ -512,16 +502,27 @@ function Footer() {
 
 /* ── APP ── */
 function App() {
+  const [content, setContent] = useState(null);
+
+  useEffect(() => {
+    fetch('./content.json?v=' + Date.now())
+      .then(r => r.json())
+      .then(setContent)
+      .catch(() => setContent(DEFAULT));
+  }, []);
+
+  if (!content) return null;
+
   return (
-    <>
+    <Ctx.Provider value={content}>
       <Nav/>
       <Hero/>
       <Services/>
       <Gallery/>
       <MapContact/>
       <Footer/>
-      <a href="sms:5085949313" className="sms-btn" title="Text us">💬</a>
-    </>
+      <a href={`sms:${content.site.phone}`} className="sms-btn" title="Text us">💬</a>
+    </Ctx.Provider>
   );
 }
 
