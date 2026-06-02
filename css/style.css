@@ -95,7 +95,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
 
 /* ── PROCESS ── */
 .proc-sec{background:var(--bg)}
-.proc-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .proc-card{border-radius:var(--r);overflow:hidden;background:#fff;border:1px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,.07);transition:transform .18s ease,box-shadow .18s ease}
 .proc-card:hover{transform:translateY(-4px);box-shadow:0 8px 28px rgba(27,81,118,.13)}
 .proc-img{height:210px;background-size:cover;background-position:center;cursor:zoom-in}
@@ -171,7 +171,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
   .hero-h1{font-size:38px}
   .ba-card{flex:0 0 calc(50% - 9px)}
   .mc-grid{grid-template-columns:1fr}
-  .proc-grid{grid-template-columns:repeat(3,1fr)}
+  .proc-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:768px){
   /* Nav: show burger, hide desktop links and phone */
@@ -241,7 +241,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
   .sec{padding:44px 16px}
   .mc-left{padding:28px 16px 0}
   .mc-form{padding:18px 16px 24px}
-  .proc-grid{grid-template-columns:repeat(2,1fr)}
+  .proc-grid{grid-template-columns:1fr}
   .proc-img{height:150px}
   .footer{padding:24px 16px 0}
 }
