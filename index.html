@@ -13,7 +13,7 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <link rel="stylesheet" href="css/style.css?v=2"/>
+  <link rel="stylesheet" href="css/style.css?v=3"/>
   <!-- Netlify Identity (needed for Decap CMS login redirect) -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
@@ -58,7 +58,7 @@ const DEFAULT = {
 /* ── NAV ── */
 function Nav() {
   const { site } = useContent();
-  const links = [['Home','#'],['Services','#services'],['Portfolio','#portfolio'],['Process','#process'],['Service Areas','#service-areas'],['Contact','#contact']];
+  const links = [['Services','#services'],['Portfolio','#portfolio'],['Process','#process'],['Service Areas','#service-areas'],['Contact','#contact']];
   const [menuOpen, setMenuOpen] = React.useState(false);
 
   React.useEffect(() => {
@@ -298,12 +298,8 @@ function Services() {
 /* ── GALLERY ── */
 function Gallery() {
   const projects = [
-    { from:'Cherry Oak', to:'Matte White', afterBg:'#F5F3EE', material:'Kitchen 2 — Shaker doors', beforeImg:'k2_bef.jpg', afterImg:'k2_aft.jpg' },
-    { from:'Dark Espresso', to:'Matte White', afterBg:'#F8F6F1', material:'Kitchen 3 — Raised panel', beforeImg:'k3_bef.jpg', afterImg:'k3_aft.jpg' },
-    { from:'Oak',       to:'Matte White', afterBg:'#FAFAF8', material:'Veneer doors'     },
-    { from:'Dark Wood', to:'Navy Blue',   afterBg:'#1E2D4A', material:'MDF doors'        },
-    { from:'Dark Wood', to:'Navy Blue',   afterBg:'#243352', material:'Solid wood'       },
-    { from:'Dark Wood', to:'Sage Green',  afterBg:'#6B7A54', material:'MDF doors'        },
+    { from:'Cherry Oak', to:'Matte White', material:'Kitchen 2 — Shaker doors', beforeImg:'k2_bef.jpg', beforePos:'center', afterImg:'k2_aft.jpg', afterPos:'center' },
+    { from:'Dark Espresso', to:'Matte White', material:'Kitchen 3 — Raised panel', beforeImg:'k3_bef.jpg', beforePos:'center', afterImg:'k3_aft.jpg', afterPos:'center 30%' },
   ];
   return (
     <section className="sec gallery-sec" id="portfolio">
@@ -314,10 +310,10 @@ function Gallery() {
           {projects.map((p,i)=>(
             <div className="ba-card" key={i}>
               <div className="ba-split">
-                <div className="ba-before-img" style={p.beforeImg ? {background:`url('${p.beforeImg}') center/cover no-repeat`} : {}}>
+                <div className="ba-before-img" style={p.beforeImg ? {background:`url('${p.beforeImg}') ${p.beforePos||'center'}/cover no-repeat`} : {}}>
                   <span className="ba-img-lbl">Before</span>
                 </div>
-                <div className="ba-after-img" style={p.afterImg ? {background:`url('${p.afterImg}') center/cover no-repeat`} : {background:`linear-gradient(145deg,${p.afterBg}bb,${p.afterBg})`}}>
+                <div className="ba-after-img" style={p.afterImg ? {background:`url('${p.afterImg}') ${p.afterPos||'center'}/cover no-repeat`} : {background:`linear-gradient(145deg,${p.afterBg}bb,${p.afterBg})`}}>
                   <span className="ba-img-lbl">After</span>
                 </div>
               </div>
@@ -496,7 +492,7 @@ function MapContact() {
 /* ── FOOTER ── */
 function Footer() {
   const { site } = useContent();
-  const links = [['Home','#'],['Services','#services'],['Portfolio','#portfolio'],['Process','#process'],['Service Areas','#service-areas'],['Contact','#contact']];
+  const links = [['Services','#services'],['Portfolio','#portfolio'],['Process','#process'],['Service Areas','#service-areas'],['Contact','#contact']];
   return (
     <footer className="footer">
       <div className="ft-top">
