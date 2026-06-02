@@ -93,6 +93,17 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
 .ba-trans{font-size:11px;font-weight:700;color:var(--brand);text-transform:uppercase;letter-spacing:.05em}
 .ba-mat{font-size:11px;color:var(--text3);margin-top:2px}
 
+/* ── PROCESS ── */
+.proc-sec{background:var(--bg)}
+.proc-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.proc-card{border-radius:var(--r);overflow:hidden;background:#fff;border:1px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,.07);transition:transform .18s ease,box-shadow .18s ease}
+.proc-card:hover{transform:translateY(-4px);box-shadow:0 8px 28px rgba(27,81,118,.13)}
+.proc-img{height:210px;background-size:cover;background-position:center}
+.proc-body{padding:14px 16px 18px}
+.proc-num{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);margin-bottom:4px}
+.proc-title{font-family:var(--head);font-size:15px;font-weight:700;text-transform:uppercase;color:var(--text);margin-bottom:6px}
+.proc-desc{font-size:11px;color:var(--text3);line-height:1.6}
+
 /* ── MAP + CONTACT ── */
 .mc-wrap{border-top:1px solid var(--border)}
 .mc-grid{display:grid;grid-template-columns:1fr 1fr;max-width:100%}
@@ -160,6 +171,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
   .hero-h1{font-size:38px}
   .ba-grid{grid-template-columns:repeat(2,1fr)}
   .mc-grid{grid-template-columns:1fr}
+  .proc-grid{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:768px){
   /* Nav: show burger, hide desktop links and phone */
@@ -229,6 +241,8 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
   .sec{padding:44px 16px}
   .mc-left{padding:28px 16px 0}
   .mc-form{padding:18px 16px 24px}
+  .proc-grid{grid-template-columns:repeat(2,1fr)}
+  .proc-img{height:150px}
   .footer{padding:24px 16px 0}
 }
 @media(max-width:480px){
