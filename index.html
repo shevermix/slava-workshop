@@ -13,7 +13,7 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <link rel="stylesheet" href="css/style.css?v=4"/>
+  <link rel="stylesheet" href="css/style.css?v=5"/>
   <!-- Netlify Identity (needed for Decap CMS login redirect) -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
@@ -469,7 +469,7 @@ function MapContact() {
         pending = false;
         nameRef.current?.focus();
       }
-    }, { threshold: 0.35 });
+    }, { threshold: 0.15 });
     const el = document.getElementById('contact');
     if (el) observer.observe(el);
     window.addEventListener('hashchange', onHash);
