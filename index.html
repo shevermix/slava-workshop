@@ -437,6 +437,7 @@ function MapContact() {
   const [photos, setPhotos] = useState([]);
   const [mapFs, setMapFs] = useState(false);
   const [mapFsClosing, setMapFsClosing] = useState(false);
+  const [formPop, setFormPop] = useState(false);
   const fileRef = useRef(null);
   const mapDivRef = useRef(null);
   const mapInstanceRef = useRef(null);
@@ -459,6 +460,17 @@ function MapContact() {
   };
 
   const toggleFs = () => mapFs ? closeFs() : openFs();
+
+  useEffect(() => {
+    const trigger = () => {
+      if (window.location.hash === '#contact') {
+        setFormPop(false);
+        requestAnimationFrame(() => requestAnimationFrame(() => setFormPop(true)));
+      }
+    };
+    window.addEventListener('hashchange', trigger);
+    return () => window.removeEventListener('hashchange', trigger);
+  }, []);
 
   useEffect(() => {
     const onKey = e => { if (e.key === 'Escape' && mapFs) closeFs(); };
@@ -536,7 +548,7 @@ function MapContact() {
             <div className="mc-head-title">{contact.title}</div>
             <div className="mc-head-sub">{contact.sub}</div>
           </div>
-          <div className="mc-form">
+          <div className={`mc-form${formPop ? ' mc-form--pop' : ''}`} onAnimationEnd={() => setFormPop(false)}>
             {[['Name','name'],['Email','email'],['Phone','phone']].map(([label,key])=>(
               <div key={key}>
                 <div className="f-lbl">{label}</div>
