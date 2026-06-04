@@ -37,6 +37,14 @@ const { useState, useRef, useEffect, useCallback, createContext, useContext } = 
 const Ctx = createContext(null);
 const useContent = () => useContext(Ctx);
 
+/* Scroll to contact form + focus the Name field */
+const focusContactField = () => {
+  setTimeout(() => {
+    const el = document.getElementById('f-name');
+    if (el) el.focus({ preventScroll: true });
+  }, 600);
+};
+
 /* Default content (fallback if fetch fails) */
 const DEFAULT = {
   site: { name:'Slavik Workshop', phone:'5085949313', phone_display:'508-594-9313', instagram:'https://instagram.com/slavik.workshop' },
@@ -206,7 +214,7 @@ function Hero() {
           ))}
         </h1>
         <p className="hero-sub">{hero.subtext}</p>
-        <a href="#contact" className="btn-hero">{hero.cta}</a>
+        <a href="#contact" onClick={focusContactField} className="btn-hero">{hero.cta}</a>
       </div>
       <div className="hero-right" ref={rightRef} onMouseDown={start} onTouchStart={startTouch}
         tabIndex={0} role="slider" aria-label="Before/After slider"
@@ -288,7 +296,7 @@ function Services() {
           ))}
         </div>
         <div className="svc-cta">
-          <a href="#contact" className="btn-hero">📷 Get Your Free Estimate</a>
+          <a href="#contact" onClick={focusContactField} className="btn-hero">📷 Get Your Free Estimate</a>
         </div>
       </div>
     </section>
@@ -437,7 +445,6 @@ function MapContact() {
   const [photos, setPhotos] = useState([]);
   const [mapFs, setMapFs] = useState(false);
   const [mapFsClosing, setMapFsClosing] = useState(false);
-  const nameRef = useRef(null);
   const fileRef = useRef(null);
   const mapDivRef = useRef(null);
   const mapInstanceRef = useRef(null);
@@ -460,15 +467,6 @@ function MapContact() {
   };
 
   const toggleFs = () => mapFs ? closeFs() : openFs();
-
-  useEffect(() => {
-    const onHash = () => {
-      if (window.location.hash === '#contact')
-        setTimeout(() => nameRef.current?.focus(), 750);
-    };
-    window.addEventListener('hashchange', onHash);
-    return () => window.removeEventListener('hashchange', onHash);
-  }, []);
 
   useEffect(() => {
     const onKey = e => { if (e.key === 'Escape' && mapFs) closeFs(); };
@@ -550,7 +548,7 @@ function MapContact() {
             {[['Name','name','text'],['Email','email','email'],['Phone','phone','tel']].map(([label,key,type])=>(
               <div key={key} className="f-field">
                 <input className="f-inp" placeholder=" " value={form[key]} onChange={set(key)}
-                  id={`f-${key}`} type={type} ref={key==='name' ? nameRef : null}/>
+                  id={`f-${key}`} type={type}/>
                 <label className="f-lbl" htmlFor={`f-${key}`}>{label}</label>
               </div>
             ))}
