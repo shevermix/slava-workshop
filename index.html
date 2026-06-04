@@ -463,17 +463,26 @@ function MapContact() {
 
   useEffect(() => {
     let pending = false;
-    const onHash = () => { if (window.location.hash === '#contact') pending = true; };
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && pending) {
-        pending = false;
-        nameRef.current?.focus();
+    let fallback = null;
+    const doFocus = () => {
+      if (!pending) return;
+      pending = false;
+      clearTimeout(fallback);
+      setTimeout(() => nameRef.current?.focus(), 60);
+    };
+    const onHash = () => {
+      if (window.location.hash === '#contact') {
+        pending = true;
+        fallback = setTimeout(doFocus, 900); // fallback if scrollend not supported
       }
-    }, { threshold: 0.15 });
-    const el = document.getElementById('contact');
-    if (el) observer.observe(el);
+    };
     window.addEventListener('hashchange', onHash);
-    return () => { window.removeEventListener('hashchange', onHash); observer.disconnect(); };
+    window.addEventListener('scrollend', doFocus);
+    return () => {
+      window.removeEventListener('hashchange', onHash);
+      window.removeEventListener('scrollend', doFocus);
+      clearTimeout(fallback);
+    };
   }, []);
 
   useEffect(() => {
