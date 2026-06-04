@@ -553,11 +553,11 @@ function MapContact() {
             <div className="mc-head-sub">{contact.sub}</div>
           </div>
           <div className="mc-form">
-            {[['Name','name'],['Email','email'],['Phone','phone']].map(([label,key])=>(
-              <div key={key}>
-                <div className="f-lbl">{label}</div>
-                <input className="f-inp" placeholder={label} value={form[key]} onChange={set(key)}
-                  ref={key==='name' ? nameRef : null}/>
+            {[['Name','name','text'],['Email','email','email'],['Phone','phone','tel']].map(([label,key,type])=>(
+              <div key={key} className="f-field">
+                <input className="f-inp" placeholder=" " value={form[key]} onChange={set(key)}
+                  id={`f-${key}`} type={type} ref={key==='name' ? nameRef : null}/>
+                <label className="f-lbl" htmlFor={`f-${key}`}>{label}</label>
               </div>
             ))}
             <div>
