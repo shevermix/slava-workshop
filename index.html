@@ -37,8 +37,11 @@ const { useState, useRef, useEffect, useCallback, createContext, useContext } = 
 const Ctx = createContext(null);
 const useContent = () => useContext(Ctx);
 
-/* Scroll to contact form + focus the Name field */
+/* Focus the Name field after scrolling to the contact form.
+   Skipped on touch devices — auto-opening the keyboard there
+   shrinks the viewport and hides the form. */
 const focusContactField = () => {
+  if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
   setTimeout(() => {
     const el = document.getElementById('f-name');
     if (el) el.focus({ preventScroll: true });
