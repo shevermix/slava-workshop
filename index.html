@@ -462,14 +462,19 @@ function MapContact() {
   const toggleFs = () => mapFs ? closeFs() : openFs();
 
   useEffect(() => {
-    const trigger = () => {
-      if (window.location.hash === '#contact') {
+    let pending = false;
+    const onHash = () => { if (window.location.hash === '#contact') pending = true; };
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && pending) {
+        pending = false;
         setFormPop(false);
         requestAnimationFrame(() => requestAnimationFrame(() => setFormPop(true)));
       }
-    };
-    window.addEventListener('hashchange', trigger);
-    return () => window.removeEventListener('hashchange', trigger);
+    }, { threshold: 0.35 });
+    const el = document.getElementById('contact');
+    if (el) observer.observe(el);
+    window.addEventListener('hashchange', onHash);
+    return () => { window.removeEventListener('hashchange', onHash); observer.disconnect(); };
   }, []);
 
   useEffect(() => {
