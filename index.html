@@ -462,27 +462,12 @@ function MapContact() {
   const toggleFs = () => mapFs ? closeFs() : openFs();
 
   useEffect(() => {
-    let pending = false;
-    let fallback = null;
-    const doFocus = () => {
-      if (!pending) return;
-      pending = false;
-      clearTimeout(fallback);
-      setTimeout(() => nameRef.current?.focus(), 60);
-    };
     const onHash = () => {
-      if (window.location.hash === '#contact') {
-        pending = true;
-        fallback = setTimeout(doFocus, 900); // fallback if scrollend not supported
-      }
+      if (window.location.hash === '#contact')
+        setTimeout(() => nameRef.current?.focus(), 750);
     };
     window.addEventListener('hashchange', onHash);
-    window.addEventListener('scrollend', doFocus);
-    return () => {
-      window.removeEventListener('hashchange', onHash);
-      window.removeEventListener('scrollend', doFocus);
-      clearTimeout(fallback);
-    };
+    return () => window.removeEventListener('hashchange', onHash);
   }, []);
 
   useEffect(() => {
