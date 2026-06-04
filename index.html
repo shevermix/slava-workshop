@@ -437,7 +437,7 @@ function MapContact() {
   const [photos, setPhotos] = useState([]);
   const [mapFs, setMapFs] = useState(false);
   const [mapFsClosing, setMapFsClosing] = useState(false);
-  const [formPop, setFormPop] = useState(false);
+  const nameRef = useRef(null);
   const fileRef = useRef(null);
   const mapDivRef = useRef(null);
   const mapInstanceRef = useRef(null);
@@ -467,8 +467,7 @@ function MapContact() {
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting && pending) {
         pending = false;
-        setFormPop(false);
-        requestAnimationFrame(() => requestAnimationFrame(() => setFormPop(true)));
+        nameRef.current?.focus();
       }
     }, { threshold: 0.35 });
     const el = document.getElementById('contact');
@@ -553,11 +552,12 @@ function MapContact() {
             <div className="mc-head-title">{contact.title}</div>
             <div className="mc-head-sub">{contact.sub}</div>
           </div>
-          <div className={`mc-form${formPop ? ' mc-form--pop' : ''}`} onAnimationEnd={() => setFormPop(false)}>
+          <div className="mc-form">
             {[['Name','name'],['Email','email'],['Phone','phone']].map(([label,key])=>(
               <div key={key}>
                 <div className="f-lbl">{label}</div>
-                <input className="f-inp" placeholder={label} value={form[key]} onChange={set(key)}/>
+                <input className="f-inp" placeholder={label} value={form[key]} onChange={set(key)}
+                  ref={key==='name' ? nameRef : null}/>
               </div>
             ))}
             <div>
