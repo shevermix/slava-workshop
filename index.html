@@ -456,11 +456,13 @@ function MapContact() {
   const openFs = () => {
     setMapFs(true);
     document.body.style.overflow = 'hidden';
+    if (mapInstanceRef.current) mapInstanceRef.current.scrollWheelZoom.enable();
     setTimeout(() => { if (mapInstanceRef.current) mapInstanceRef.current.invalidateSize(); }, 350);
   };
 
   const closeFs = () => {
     setMapFsClosing(true);
+    if (mapInstanceRef.current) mapInstanceRef.current.scrollWheelZoom.disable();
     setTimeout(() => {
       setMapFs(false);
       setMapFsClosing(false);
