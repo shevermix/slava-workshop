@@ -127,9 +127,11 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
 .mc-head-sub{font-size:12px;color:rgba(255,255,255,.6);margin-top:5px}
 .mc-form{padding:24px 36px 32px;flex:1;display:flex;flex-direction:column;gap:14px}
 .f-field{position:relative}
-.f-inp{width:100%;padding:22px 13px 7px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:5px;color:#fff;font-family:var(--sans);font-size:13px;outline:none;transition:border-color .2s,background .2s;height:52px}
+.f-inp{width:100%;padding:22px 13px 7px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:5px;color:#fff;caret-color:#fff;font-family:var(--sans);font-size:13px;outline:none;transition:border-color .2s,background .2s,box-shadow .25s;height:52px}
 .f-inp::placeholder{color:transparent}
-.f-inp:focus{border-color:rgba(255,255,255,.55);background:rgba(255,255,255,.15)}
+.f-inp:focus{border-color:#fff;background:rgba(255,255,255,.2);box-shadow:0 0 0 3px rgba(255,255,255,.18)}
+@keyframes fieldFlash{0%{box-shadow:0 0 0 0 rgba(255,255,255,.5)}100%{box-shadow:0 0 0 8px rgba(255,255,255,0)}}
+.f-inp:focus{animation:fieldFlash .6s ease-out}
 .f-lbl{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:13px;font-weight:400;color:rgba(255,255,255,.42);pointer-events:none;transition:all .2s ease;letter-spacing:normal;text-transform:none;margin:0}
 .f-inp:focus+.f-lbl,.f-inp:not(:placeholder-shown)+.f-lbl{top:9px;transform:none;font-size:10px;font-weight:700;color:rgba(255,255,255,.75);letter-spacing:.09em;text-transform:uppercase}
 .f-upload{border:1.5px dashed rgba(255,255,255,.3);border-radius:5px;padding:18px;text-align:center;cursor:pointer;color:rgba(255,255,255,.55);font-size:12px;line-height:1.6;transition:border-color .2s}
