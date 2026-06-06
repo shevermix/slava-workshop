@@ -191,7 +191,11 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
   .nav-links{display:none}
   .nav-phone,.btn-nav{display:none}
   .nav-phone-mobile,.nav-sms-mobile{display:flex}
-  .ig-grid{grid-template-columns:1fr}
+  /* Instagram: 2 columns on mobile — embeds have a 326px min-width,
+     so scale each card down with zoom to fit two per row */
+  .ig-sec{padding-left:10px;padding-right:10px}
+  .ig-grid{grid-template-columns:repeat(2,max-content);gap:6px;justify-content:center}
+  .ig-grid .instagram-media{width:326px !important;min-width:326px !important;zoom:.52}
   .nav-sep{display:none}
 
   /* Mobile menu portal (rendered to document.body, no backdrop-filter parent) */
