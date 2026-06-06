@@ -618,6 +618,7 @@ function MapContact() {
               <input type="hidden" name="_next" value="https://shevermix.github.io/slava-workshop/?thanks=1"/>
               <input type="hidden" name="_captcha" value="false"/>
               <input type="hidden" name="_template" value="table"/>
+              <input type="hidden" name="_replyto" value={form.email}/>
               {[['Name','name','text'],['Email','email','email'],['Phone','phone','tel']].map(([label,key,type])=>(
                 <div key={key} className="f-field">
                   <input className="f-inp" placeholder=" " value={form[key]} onChange={set(key)}
