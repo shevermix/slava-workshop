@@ -42,6 +42,11 @@
     "tag": "Follow Us",
     "title": "Follow Our Work",
     "handle": "@slavik.workshop",
-    "posts": []
+    "posts": [
+      { "url": "https://www.instagram.com/reel/DTNYnASDMK-/", "published": true },
+      { "url": "https://www.instagram.com/p/DTFg35EDdi_/", "published": true },
+      { "url": "https://www.instagram.com/p/DS70wOCjJZf/", "published": true },
+      { "url": "https://www.instagram.com/p/DSvQr3ujUua/", "published": true }
+    ]
   }
 }
