@@ -13,7 +13,7 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <link rel="stylesheet" href="css/style.css?v=6"/>
+  <link rel="stylesheet" href="css/style.css?v=7"/>
   <!-- Netlify Identity (needed for Decap CMS login redirect) -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
@@ -64,12 +64,13 @@ const DEFAULT = {
   ],
   areas: ['Boston','Middlesex County','Norfolk County','Bristol County','Plymouth County'],
   contact: { title:'Get a Free Estimate', sub:'Text us photos — we reply same day' },
+  instagram: { tag:'Follow Us', title:'Follow Our Work', handle:'@slavik.workshop', posts: [] },
 };
 
 /* ── NAV ── */
 function Nav() {
   const { site } = useContent();
-  const links = [['Services','#services'],['Portfolio','#portfolio'],['Process','#process'],['Service Areas','#service-areas'],['Contact','#contact']];
+  const links = [['Services','#services'],['Portfolio','#portfolio'],['Process','#process'],['Instagram','#instagram'],['Service Areas','#service-areas'],['Contact','#contact']];
   const [menuOpen, setMenuOpen] = React.useState(false);
 
   React.useEffect(() => {
@@ -384,6 +385,50 @@ function Process({ openLb }) {
   );
 }
 
+/* ── INSTAGRAM ── */
+function Instagram() {
+  const { instagram, site } = useContent();
+  const ig = instagram || {};
+  const posts = (ig.posts || []).filter(p => p && p.published && p.url);
+
+  useEffect(() => {
+    if (!posts.length) return;
+    const run = () => { if (window.instgrm) window.instgrm.Embeds.process(); };
+    if (window.instgrm) { run(); return; }
+    let s = document.getElementById('ig-embed-js');
+    if (!s) {
+      s = document.createElement('script');
+      s.id = 'ig-embed-js';
+      s.async = true;
+      s.src = 'https://www.instagram.com/embed.js';
+      s.addEventListener('load', run);
+      document.body.appendChild(s);
+    } else {
+      s.addEventListener('load', run);
+    }
+  }, [posts.length, posts.map(p=>p.url).join(',')]);
+
+  if (!posts.length) return null;
+
+  return (
+    <section className="sec ig-sec" id="instagram">
+      <div className="sec-inner">
+        <div className="sec-tag">{ig.tag || 'Follow Us'}</div>
+        <h2 className="sec-h2">{ig.title || 'Follow Our Work'}</h2>
+        {ig.handle && (
+          <a className="ig-handle" href={site.instagram} target="_blank" rel="noopener">{ig.handle}</a>
+        )}
+        <div className="ig-grid">
+          {posts.map(p => (
+            <blockquote key={p.url} className="instagram-media"
+              data-instgrm-permalink={p.url} data-instgrm-version="14"/>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ── LIGHTBOX ── */
 function Lightbox({ items, idx, onClose, onChange }) {
   const [vis, setVis] = useState(false);
@@ -576,7 +621,7 @@ function MapContact() {
 /* ── FOOTER ── */
 function Footer() {
   const { site } = useContent();
-  const links = [['Services','#services'],['Portfolio','#portfolio'],['Process','#process'],['Service Areas','#service-areas'],['Contact','#contact']];
+  const links = [['Services','#services'],['Portfolio','#portfolio'],['Process','#process'],['Instagram','#instagram'],['Service Areas','#service-areas'],['Contact','#contact']];
   return (
     <footer className="footer">
       <div className="ft-top">
@@ -635,6 +680,7 @@ function App() {
       <Services/>
       <Gallery openLb={setLb}/>
       <Process openLb={setLb}/>
+      <Instagram/>
       <MapContact/>
       <Footer/>
       <a href={`sms:${content.site.phone}`} className="sms-btn" title="Text us">💬</a>

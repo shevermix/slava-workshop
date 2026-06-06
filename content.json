@@ -37,5 +37,11 @@
   "contact": {
     "title": "Get a Free Estimate",
     "sub": "Text us photos — we reply same day"
+  },
+  "instagram": {
+    "tag": "Follow Us",
+    "title": "Follow Our Work",
+    "handle": "@slavik.workshop",
+    "posts": []
   }
 }

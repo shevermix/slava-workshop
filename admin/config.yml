@@ -62,3 +62,17 @@ collections:
             fields:
               - { label: "Form title",    name: "title", widget: "string" }
               - { label: "Form subtitle", name: "sub",   widget: "string" }
+
+          - label: "Instagram section"
+            name: "instagram"
+            widget: "object"
+            fields:
+              - { label: "Section tag",      name: "tag",    widget: "string", required: false }
+              - { label: "Heading",          name: "title",  widget: "string", required: false }
+              - { label: "Instagram handle", name: "handle", widget: "string", required: false }
+              - label: "Posts"
+                name: "posts"
+                widget: "list"
+                fields:
+                  - { label: "Instagram post URL", name: "url", widget: "string", hint: "Paste the post link, e.g. https://www.instagram.com/p/ABC123/. The post must be public." }
+                  - { label: "Show on site", name: "published", widget: "boolean", default: true }
