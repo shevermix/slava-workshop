@@ -13,7 +13,7 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <link rel="stylesheet" href="css/style.css?v=8"/>
+  <link rel="stylesheet" href="css/style.css?v=9"/>
   <!-- Netlify Identity (needed for Decap CMS login redirect) -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
@@ -493,6 +493,12 @@ function MapContact() {
   const [photos, setPhotos] = useState([]);
   const [mapFs, setMapFs] = useState(false);
   const [mapFsClosing, setMapFsClosing] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get('thanks') === '1')
+      setSubmitted(true);
+  }, []);
   const fileRef = useRef(null);
   const mapDivRef = useRef(null);
   const mapInstanceRef = useRef(null);
@@ -594,24 +600,42 @@ function MapContact() {
             <div className="mc-head-title">{contact.title}</div>
             <div className="mc-head-sub">{contact.sub}</div>
           </div>
-          <div className="mc-form">
-            {[['Name','name','text'],['Email','email','email'],['Phone','phone','tel']].map(([label,key,type])=>(
-              <div key={key} className="f-field">
-                <input className="f-inp" placeholder=" " value={form[key]} onChange={set(key)}
-                  id={`f-${key}`} type={type}/>
-                <label className="f-lbl" htmlFor={`f-${key}`}>{label}</label>
-              </div>
-            ))}
-            <div>
-              <div className="f-lbl">Upload Photos</div>
-              <input ref={fileRef} type="file" accept="image/jpeg,image/png" multiple style={{display:'none'}} onChange={e => setPhotos([...e.target.files])}/>
-              <div className="f-upload" onClick={() => fileRef.current?.click()} role="button" tabIndex={0} onKeyDown={e => { if (e.key==='Enter'||e.key===' ') fileRef.current?.click(); }}>
-                {photos.length > 0 ? `📷 ${photos.length} photo${photos.length>1?'s':''} selected` : '📷 Click to upload cabinet photos'}
-                <br/><span style={{fontSize:11,opacity:.7}}>JPG, PNG — up to 10 MB</span>
-              </div>
+          {submitted ? (
+            <div className="mc-thanks">
+              <div className="mc-thanks-icon">✓</div>
+              <div className="mc-thanks-title">Request Received!</div>
+              <div className="mc-thanks-sub">We'll get back to you within 24 hours.</div>
+              <a href={`sms:${site.phone}`} className="btn-submit" style={{marginTop:20}}>
+                Or Text Us Directly
+              </a>
             </div>
-            <a href={`sms:${site.phone}`} className="btn-submit">Submit Request</a>
-          </div>
+          ) : (
+            <form className="mc-form"
+              action="https://formsubmit.co/mihailsh87@gmail.com"
+              method="POST"
+              encType="multipart/form-data">
+              <input type="hidden" name="_subject" value="New Estimate Request — Slavik Workshop"/>
+              <input type="hidden" name="_next" value="https://shevermix.github.io/slava-workshop/?thanks=1"/>
+              <input type="hidden" name="_captcha" value="false"/>
+              <input type="hidden" name="_template" value="table"/>
+              {[['Name','name','text'],['Email','email','email'],['Phone','phone','tel']].map(([label,key,type])=>(
+                <div key={key} className="f-field">
+                  <input className="f-inp" placeholder=" " value={form[key]} onChange={set(key)}
+                    id={`f-${key}`} type={type} name={key}/>
+                  <label className="f-lbl" htmlFor={`f-${key}`}>{label}</label>
+                </div>
+              ))}
+              <div>
+                <div className="f-lbl" style={{marginBottom:6}}>Upload Photos</div>
+                <input ref={fileRef} type="file" name="photo" accept="image/jpeg,image/png" multiple style={{display:'none'}} onChange={e => setPhotos([...e.target.files])}/>
+                <div className="f-upload" onClick={() => fileRef.current?.click()} role="button" tabIndex={0} onKeyDown={e => { if (e.key==='Enter'||e.key===' ') fileRef.current?.click(); }}>
+                  {photos.length > 0 ? `📷 ${photos.length} photo${photos.length>1?'s':''} selected` : '📷 Click to upload cabinet photos'}
+                  <br/><span style={{fontSize:11,opacity:.7}}>JPG, PNG — up to 10 MB</span>
+                </div>
+              </div>
+              <button type="submit" className="btn-submit">Submit Request</button>
+            </form>
+          )}
         </div>
       </div>
     </div>
