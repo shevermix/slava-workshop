@@ -493,15 +493,6 @@ function MapContact() {
   const [photos, setPhotos] = useState([]);
   const [mapFs, setMapFs] = useState(false);
   const [mapFsClosing, setMapFsClosing] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [dragging, setDragging] = useState(false);
-
-  useEffect(() => {
-    if (new URLSearchParams(window.location.search).get('thanks') === '1') {
-      setSubmitted(true);
-      window.history.replaceState({}, '', window.location.pathname);
-    }
-  }, []);
   const fileRef = useRef(null);
   const mapDivRef = useRef(null);
   const mapInstanceRef = useRef(null);
@@ -603,77 +594,24 @@ function MapContact() {
             <div className="mc-head-title">{contact.title}</div>
             <div className="mc-head-sub">{contact.sub}</div>
           </div>
-          {submitted ? (
-            <div className="mc-thanks">
-              <div className="mc-thanks-icon">✓</div>
-              <div className="mc-thanks-title">Request Received!</div>
-              <div className="mc-thanks-sub">We'll get back to you within 24 hours.</div>
-              <a href={`sms:${site.phone}`} className="btn-submit" style={{marginTop:20}}>
-                Or Text Us Directly
-              </a>
-              <button type="button" onClick={() => setSubmitted(false)} className="mc-reset-btn">
-                Send another request
-              </button>
-            </div>
-          ) : (
-            <form className="mc-form"
-              action="https://formsubmit.co/slavikworkshop@gmail.com"
-              method="POST"
-              encType="multipart/form-data">
-              <input type="hidden" name="_subject" value="New Estimate Request — Slavik Workshop"/>
-              <input type="hidden" name="_next" value="https://shevermix.github.io/slava-workshop/?thanks=1"/>
-              <input type="hidden" name="_captcha" value="false"/>
-              <input type="hidden" name="_template" value="table"/>
-              <input type="hidden" name="_replyto" value={form.email}/>
-              <div>
-                <div className="f-lbl" style={{marginBottom:6}}>Upload Photo</div>
-                <input ref={fileRef} type="file" name="photo" accept="image/jpeg,image/png" style={{display:'none'}}
-                  onChange={e => setPhotos(e.target.files[0] ? [e.target.files[0]] : [])}/>
-                <div
-                  className={`f-upload${dragging ? ' f-upload--drag' : ''}`}
-                  onClick={() => fileRef.current?.click()}
-                  onDragEnter={e => { e.preventDefault(); setDragging(true); }}
-                  onDragOver={e => { e.preventDefault(); setDragging(true); }}
-                  onDragLeave={e => { e.preventDefault(); setDragging(false); }}
-                  onDrop={e => {
-                    e.preventDefault();
-                    setDragging(false);
-                    const file = [...e.dataTransfer.files].find(f => f.type==='image/jpeg'||f.type==='image/png');
-                    if (file) {
-                      setPhotos([file]);
-                      const dt = new DataTransfer();
-                      dt.items.add(file);
-                      fileRef.current.files = dt.files;
-                    }
-                  }}
-                  role="button" tabIndex={0}
-                  onKeyDown={e => { if (e.key==='Enter'||e.key===' ') fileRef.current?.click(); }}>
-                  {dragging
-                    ? '📂 Drop photo here'
-                    : photos.length > 0
-                      ? `📷 ${photos[0].name}`
-                      : '📷 Click or drag a photo here'}
-                  <br/><span style={{fontSize:11,opacity:.7}}>JPG, PNG — up to 5 MB</span>
-                </div>
-                <div className="f-more-photos">
-                  More photos?{' '}
-                  <a href={`sms:${site.phone}`}>Text us</a>
-                  {' or '}
-                  <a href="mailto:slavikworkshop@gmail.com">email directly</a>
-                </div>
+          <div className="mc-form">
+            {[['Name','name','text'],['Email','email','email'],['Phone','phone','tel']].map(([label,key,type])=>(
+              <div key={key} className="f-field">
+                <input className="f-inp" placeholder=" " value={form[key]} onChange={set(key)}
+                  id={`f-${key}`} type={type}/>
+                <label className="f-lbl" htmlFor={`f-${key}`}>{label}</label>
               </div>
-              {[['Name','name','text',true],['Email','email','email',true],['Phone','phone','tel',false]].map(([label,key,type,req])=>(
-                <div key={key} className="f-field">
-                  <input className="f-inp" placeholder=" " value={form[key]} onChange={set(key)}
-                    id={`f-${key}`} type={type} name={key} required={req||undefined}/>
-                  <label className="f-lbl" htmlFor={`f-${key}`}>
-                    {label}{req && <span className="f-req">*</span>}
-                  </label>
-                </div>
-              ))}
-              <button type="submit" className="btn-submit">Submit Request</button>
-            </form>
-          )}
+            ))}
+            <div>
+              <div className="f-lbl">Upload Photos</div>
+              <input ref={fileRef} type="file" accept="image/jpeg,image/png" multiple style={{display:'none'}} onChange={e => setPhotos([...e.target.files])}/>
+              <div className="f-upload" onClick={() => fileRef.current?.click()} role="button" tabIndex={0} onKeyDown={e => { if (e.key==='Enter'||e.key===' ') fileRef.current?.click(); }}>
+                {photos.length > 0 ? `📷 ${photos.length} photo${photos.length>1?'s':''} selected` : '📷 Click to upload cabinet photos'}
+                <br/><span style={{fontSize:11,opacity:.7}}>JPG, PNG — up to 10 MB</span>
+              </div>
+            </div>
+            <a href={`sms:${site.phone}`} className="btn-submit">Submit Request</a>
+          </div>
         </div>
       </div>
     </div>
