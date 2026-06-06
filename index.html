@@ -653,7 +653,13 @@ function MapContact() {
                     : photos.length > 0
                       ? `📷 ${photos[0].name}`
                       : '📷 Click or drag a photo here'}
-                  <br/><span style={{fontSize:11,opacity:.7}}>JPG, PNG — up to 5 MB · text us for more photos</span>
+                  <br/><span style={{fontSize:11,opacity:.7}}>JPG, PNG — up to 5 MB</span>
+                </div>
+                <div className="f-more-photos">
+                  More photos?{' '}
+                  <a href={`sms:${site.phone}`}>Text us</a>
+                  {' or '}
+                  <a href="mailto:slavikworkshop@gmail.com">email directly</a>
                 </div>
               </div>
               {[['Name','name','text',true],['Email','email','email',true],['Phone','phone','tel',false]].map(([label,key,type,req])=>(
