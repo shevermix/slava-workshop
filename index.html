@@ -497,8 +497,10 @@ function MapContact() {
   const [dragging, setDragging] = useState(false);
 
   useEffect(() => {
-    if (new URLSearchParams(window.location.search).get('thanks') === '1')
+    if (new URLSearchParams(window.location.search).get('thanks') === '1') {
       setSubmitted(true);
+      window.history.replaceState({}, '', window.location.pathname);
+    }
   }, []);
   const fileRef = useRef(null);
   const mapDivRef = useRef(null);
@@ -609,6 +611,9 @@ function MapContact() {
               <a href={`sms:${site.phone}`} className="btn-submit" style={{marginTop:20}}>
                 Or Text Us Directly
               </a>
+              <button type="button" onClick={() => setSubmitted(false)} className="mc-reset-btn">
+                Send another request
+              </button>
             </div>
           ) : (
             <form className="mc-form"

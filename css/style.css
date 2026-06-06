@@ -151,6 +151,8 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
 .mc-thanks-icon{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;border:2px solid rgba(255,255,255,.3)}
 .mc-thanks-title{font-family:var(--head);font-size:24px;font-weight:700;color:#fff;text-transform:uppercase;margin-bottom:10px}
 .mc-thanks-sub{font-size:14px;color:rgba(255,255,255,.75);line-height:1.7;margin-bottom:4px}
+.mc-reset-btn{background:none;border:none;color:rgba(255,255,255,.5);font-size:12px;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;margin-top:16px;padding:4px 0;font-family:var(--sans);transition:color .2s}
+.mc-reset-btn:hover{color:rgba(255,255,255,.85)}
 
 /* ── FOOTER ── */
 .footer{background:var(--bg2);border-top:1px solid var(--border);padding:28px 48px 0}
