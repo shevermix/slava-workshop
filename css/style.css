@@ -144,6 +144,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
 .f-upload{border:1.5px dashed rgba(255,255,255,.3);border-radius:5px;padding:18px;text-align:center;cursor:pointer;color:rgba(255,255,255,.55);font-size:12px;line-height:1.6;transition:border-color .2s}
 .f-upload:hover{border-color:rgba(255,255,255,.65);color:rgba(255,255,255,.85)}
 .f-upload--drag{border-color:#fff;border-style:solid;background:rgba(255,255,255,.15);color:#fff;transform:scale(1.01)}
+.f-req{color:#ff8a8a;margin-left:2px;font-weight:700}
 .btn-submit{background:#fff;color:var(--brand);border:none;padding:14px;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:13px;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:background .2s;text-align:center;display:block;width:100%;text-decoration:none;margin-top:4px}
 .btn-submit:hover{background:var(--brand-l)}
 .mc-thanks{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;flex:1;padding:48px 28px}

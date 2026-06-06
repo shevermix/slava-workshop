@@ -13,7 +13,7 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <link rel="stylesheet" href="css/style.css?v=10"/>
+  <link rel="stylesheet" href="css/style.css?v=11"/>
   <!-- Netlify Identity (needed for Decap CMS login redirect) -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
@@ -620,13 +620,6 @@ function MapContact() {
               <input type="hidden" name="_captcha" value="false"/>
               <input type="hidden" name="_template" value="table"/>
               <input type="hidden" name="_replyto" value={form.email}/>
-              {[['Name','name','text'],['Email','email','email'],['Phone','phone','tel']].map(([label,key,type])=>(
-                <div key={key} className="f-field">
-                  <input className="f-inp" placeholder=" " value={form[key]} onChange={set(key)}
-                    id={`f-${key}`} type={type} name={key}/>
-                  <label className="f-lbl" htmlFor={`f-${key}`}>{label}</label>
-                </div>
-              ))}
               <div>
                 <div className="f-lbl" style={{marginBottom:6}}>Upload Photos</div>
                 <input ref={fileRef} type="file" name="photo" accept="image/jpeg,image/png" multiple style={{display:'none'}}
@@ -653,6 +646,15 @@ function MapContact() {
                   <br/><span style={{fontSize:11,opacity:.7}}>JPG, PNG — up to 5 MB</span>
                 </div>
               </div>
+              {[['Name','name','text',true],['Email','email','email',true],['Phone','phone','tel',false]].map(([label,key,type,req])=>(
+                <div key={key} className="f-field">
+                  <input className="f-inp" placeholder=" " value={form[key]} onChange={set(key)}
+                    id={`f-${key}`} type={type} name={key} required={req||undefined}/>
+                  <label className="f-lbl" htmlFor={`f-${key}`}>
+                    {label}{req && <span className="f-req">*</span>}
+                  </label>
+                </div>
+              ))}
               <button type="submit" className="btn-submit">Submit Request</button>
             </form>
           )}
