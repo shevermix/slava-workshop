@@ -626,9 +626,9 @@ function MapContact() {
               <input type="hidden" name="_template" value="table"/>
               <input type="hidden" name="_replyto" value={form.email}/>
               <div>
-                <div className="f-lbl" style={{marginBottom:6}}>Upload Photos</div>
-                <input ref={fileRef} type="file" name="photo" accept="image/jpeg,image/png" multiple style={{display:'none'}}
-                  onChange={e => setPhotos([...e.target.files])}/>
+                <div className="f-lbl" style={{marginBottom:6}}>Upload Photo</div>
+                <input ref={fileRef} type="file" name="photo" accept="image/jpeg,image/png" style={{display:'none'}}
+                  onChange={e => setPhotos(e.target.files[0] ? [e.target.files[0]] : [])}/>
                 <div
                   className={`f-upload${dragging ? ' f-upload--drag' : ''}`}
                   onClick={() => fileRef.current?.click()}
@@ -638,22 +638,22 @@ function MapContact() {
                   onDrop={e => {
                     e.preventDefault();
                     setDragging(false);
-                    const files = [...e.dataTransfer.files].filter(f => f.type==='image/jpeg'||f.type==='image/png');
-                    if (files.length) {
-                      setPhotos(files);
+                    const file = [...e.dataTransfer.files].find(f => f.type==='image/jpeg'||f.type==='image/png');
+                    if (file) {
+                      setPhotos([file]);
                       const dt = new DataTransfer();
-                      files.forEach(f => dt.items.add(f));
+                      dt.items.add(file);
                       fileRef.current.files = dt.files;
                     }
                   }}
                   role="button" tabIndex={0}
                   onKeyDown={e => { if (e.key==='Enter'||e.key===' ') fileRef.current?.click(); }}>
                   {dragging
-                    ? '📂 Drop photos here'
+                    ? '📂 Drop photo here'
                     : photos.length > 0
-                      ? `📷 ${photos.length} photo${photos.length>1?'s':''} selected`
-                      : '📷 Click or drag photos here'}
-                  <br/><span style={{fontSize:11,opacity:.7}}>JPG, PNG — up to 5 MB</span>
+                      ? `📷 ${photos[0].name}`
+                      : '📷 Click or drag a photo here'}
+                  <br/><span style={{fontSize:11,opacity:.7}}>JPG, PNG — up to 5 MB · text us for more photos</span>
                 </div>
               </div>
               {[['Name','name','text',true],['Email','email','email',true],['Phone','phone','tel',false]].map(([label,key,type,req])=>(
