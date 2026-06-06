@@ -639,7 +639,12 @@ function MapContact() {
                     e.preventDefault();
                     setDragging(false);
                     const files = [...e.dataTransfer.files].filter(f => f.type==='image/jpeg'||f.type==='image/png');
-                    if (files.length) setPhotos(files);
+                    if (files.length) {
+                      setPhotos(files);
+                      const dt = new DataTransfer();
+                      files.forEach(f => dt.items.add(f));
+                      fileRef.current.files = dt.files;
+                    }
                   }}
                   role="button" tabIndex={0}
                   onKeyDown={e => { if (e.key==='Enter'||e.key===' ') fileRef.current?.click(); }}>
