@@ -13,7 +13,7 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <link rel="stylesheet" href="css/style.css?v=12"/>
+  <link rel="stylesheet" href="css/style.css?v=13"/>
   <!-- Netlify Identity (needed for Decap CMS login redirect) -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
@@ -487,6 +487,19 @@ function Lightbox({ items, idx, onClose, onChange }) {
 }
 
 /* ── MAP + CONTACT ── */
+// chip label → census county NAME (Boston chip = Suffolk County on the map)
+const CHIP_TO_COUNTY = {
+  'Boston': 'Suffolk County',
+  'Middlesex County': 'Middlesex County',
+  'Norfolk County': 'Norfolk County',
+  'Bristol County': 'Bristol County',
+  'Plymouth County': 'Plymouth County',
+};
+const ACTIVE_STYLE   = { fillColor: '#1b5176', fillOpacity: 0.45, color: '#0d3a57', weight: 2.5 };
+const HOVER_STYLE    = { fillColor: '#2271b3', fillOpacity: 0.62, color: '#0d3a57', weight: 3 };
+const INACTIVE_STYLE = { fillColor: '#d8dde2', fillOpacity: 0.18, color: '#aab4bc', weight: 1 };
+const SELECTED_STYLE = { fillColor: '#1b5176', fillOpacity: 0.78, color: '#0d3a57', weight: 3.5 };
+
 function MapContact() {
   const { areas, contact, site } = useContent();
   const [form, setForm] = useState({ name:'', email:'', phone:'' });
@@ -497,8 +510,22 @@ function MapContact() {
   const [mapFsClosing, setMapFsClosing] = useState(false);
   const mapDivRef = useRef(null);
   const mapInstanceRef = useRef(null);
+  const countyLayersRef = useRef({});
+  const selectedLayerRef = useRef(null);
+  const [selectedArea, setSelectedArea] = useState(null);
   const HOME = { center: [42.05, -71.1], zoom: 8.3 };
   const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+
+  const selectArea = chipName => {
+    const map = mapInstanceRef.current;
+    const layer = countyLayersRef.current[CHIP_TO_COUNTY[chipName]];
+    if (!map || !layer) return;
+    if (selectedLayerRef.current) selectedLayerRef.current.setStyle(ACTIVE_STYLE);
+    layer.setStyle(SELECTED_STYLE);
+    selectedLayerRef.current = layer;
+    map.fitBounds(layer.getBounds(), { padding: [24, 24], maxZoom: 11 });
+    setSelectedArea(chipName);
+  };
   const set = k => e => setForm(f=>({...f,[k]:e.target.value}));
 
   const handleSubmit = async ev => {
@@ -575,9 +602,6 @@ function MapContact() {
     L.control.attribution({ prefix: '© <a href="https://osm.org/copyright">OSM</a> © <a href="https://carto.com/">CARTO</a>' }).addTo(map);
     mapInstanceRef.current = map;
     const serviceCounties = new Set(['Suffolk County','Middlesex County','Norfolk County','Bristol County','Plymouth County']);
-    const activeStyle = { fillColor: '#1b5176', fillOpacity: 0.45, color: '#0d3a57', weight: 2.5 };
-    const activeHoverStyle = { fillColor: '#2271b3', fillOpacity: 0.62, color: '#0d3a57', weight: 3 };
-    const inactiveStyle = { fillColor: '#d8dde2', fillOpacity: 0.18, color: '#aab4bc', weight: 1 };
     const censusUrl = 'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/1/query?where=STATE%3D%2725%27&outFields=NAME&returnGeometry=true&f=geojson';
     fetch(censusUrl)
       .then(r => r.json())
@@ -586,16 +610,17 @@ function MapContact() {
         L.geoJSON(data, {
           style: feature => {
             const name = (feature.properties.NAME || '').trim();
-            return serviceCounties.has(name) ? activeStyle : inactiveStyle;
+            return serviceCounties.has(name) ? ACTIVE_STYLE : INACTIVE_STYLE;
           },
           onEachFeature: (feature, layer) => {
             const name = (feature.properties.NAME || '').trim();
             const active = serviceCounties.has(name);
             if (active) {
+              countyLayersRef.current[name] = layer;
               const label = name === 'Suffolk County' ? 'Boston / Suffolk' : name.replace(' County', '');
               layer.bindTooltip(label, { permanent: false, sticky: true, className: 'map-county-label' });
-              layer.on('mouseover', () => layer.setStyle(activeHoverStyle));
-              layer.on('mouseout', () => layer.setStyle(activeStyle));
+              layer.on('mouseover', () => { if (layer !== selectedLayerRef.current) layer.setStyle(HOVER_STYLE); });
+              layer.on('mouseout', () => layer.setStyle(layer === selectedLayerRef.current ? SELECTED_STYLE : ACTIVE_STYLE));
             }
           },
         }).addTo(map);
@@ -613,7 +638,11 @@ function MapContact() {
           <div className="sec-tag" style={{textAlign:'left'}}>Coverage</div>
           <h2 className="mc-h2">Service Area</h2>
           <div className="chips">
-            {areas.map(a=><span className="chip" key={a}>{a}</span>)}
+            {areas.map(a=>(
+              <button type="button" key={a}
+                className={`chip${selectedArea===a ? ' chip--on' : ''}`}
+                onClick={()=>selectArea(a)}>{a}</button>
+            ))}
           </div>
           <div className={`mc-map-wrap${mapFs ? ' mc-map-wrap--fs' : ''}${mapFsClosing ? ' mc-map-wrap--fs-closing' : ''}`}>
             <div ref={mapDivRef} className="mc-map"/>

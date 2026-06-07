@@ -117,7 +117,9 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
 .mc-left{padding:40px 48px 0}
 .mc-h2{font-family:var(--head);font-size:28px;font-weight:700;text-transform:uppercase;color:var(--text);margin:8px 0 16px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
-.chip{background:var(--brand-l);color:var(--brand);font-size:11px;font-weight:600;padding:5px 13px;border-radius:20px;border:1px solid rgba(27,81,118,.25)}
+.chip{background:var(--brand-l);color:var(--brand);font-family:inherit;font-size:11px;font-weight:600;padding:5px 13px;border-radius:20px;border:1px solid rgba(27,81,118,.25);cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.chip:hover{background:rgba(27,81,118,.16);border-color:rgba(27,81,118,.5)}
+.chip--on{background:var(--brand);color:#fff;border-color:var(--brand)}
 @keyframes mapFsIn{from{opacity:0;transform:scale(0.96)}to{opacity:1;transform:scale(1)}}
 @keyframes mapFsOut{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(0.96)}}
 .mc-map-wrap{position:relative;border-radius:8px;overflow:hidden}
