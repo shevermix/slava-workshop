@@ -504,7 +504,7 @@ function MapContact() {
     ev.preventDefault();
     setSending(true);
     try {
-      await fetch('https://formsubmit.co/ajax/mihailsh87@gmail.com', {
+      await fetch('https://formsubmit.co/ajax/slavikworkshop@gmail.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
@@ -519,14 +519,14 @@ function MapContact() {
   };
 
   const copyEmail = async () => {
-    const email = 'mihailsh87@gmail.com';
+    const email = 'slavikworkshop@gmail.com';
     try { await navigator.clipboard.writeText(email); }
     catch { const t=document.createElement('textarea'); t.value=email; Object.assign(t.style,{position:'fixed',opacity:'0'}); document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); }
     setCopyDone(true);
     setTimeout(() => setCopyDone(false), 2000);
   };
 
-  const mailtoHref = `mailto:mihailsh87@gmail.com?subject=${encodeURIComponent(`Kitchen Cabinet Estimate — ${form.name}`)}&body=${encodeURIComponent(`Hi! I submitted an estimate request on your website.\n\nName: ${form.name}\nPhone: ${form.phone}\nEmail: ${form.email}\n\nPlease find my kitchen photos attached to this email.\n\nThank you!`)}`;
+  const mailtoHref = `mailto:slavikworkshop@gmail.com?subject=${encodeURIComponent(`Kitchen Cabinet Estimate — ${form.name}`)}&body=${encodeURIComponent(`Hi! I submitted an estimate request on your website.\n\nName: ${form.name}\nPhone: ${form.phone}\nEmail: ${form.email}\n\nPlease find my kitchen photos attached to this email.\n\nThank you!`)}`;
 
   const openFs = () => {
     setMapFs(true);
