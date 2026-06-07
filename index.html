@@ -70,7 +70,7 @@ const DEFAULT = {
 /* ── NAV ── */
 function Nav() {
   const { site } = useContent();
-  const links = [['Services','#services'],['Portfolio','#portfolio'],['Process','#process'],['Instagram','#instagram'],['Service Areas','#service-areas'],['Contact','#contact']];
+  const links = [['Services','#services'],['Portfolio','#portfolio'],['Process','#process'],['Instagram','#instagram'],['Service Area','#service-areas'],['Contact','#contact']];
   const [menuOpen, setMenuOpen] = React.useState(false);
 
   React.useEffect(() => {
@@ -497,6 +497,7 @@ function MapContact() {
   const [mapFsClosing, setMapFsClosing] = useState(false);
   const mapDivRef = useRef(null);
   const mapInstanceRef = useRef(null);
+  const HOME = { center: [42.05, -71.1], zoom: 8.3 };
   const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
   const set = k => e => setForm(f=>({...f,[k]:e.target.value}));
 
@@ -542,7 +543,12 @@ function MapContact() {
       setMapFs(false);
       setMapFsClosing(false);
       document.body.style.overflow = '';
-      setTimeout(() => { if (mapInstanceRef.current) mapInstanceRef.current.invalidateSize(); }, 50);
+      setTimeout(() => {
+        if (mapInstanceRef.current) {
+          mapInstanceRef.current.invalidateSize();
+          mapInstanceRef.current.setView(HOME.center, HOME.zoom);
+        }
+      }, 50);
     }, 280);
   };
 
@@ -557,8 +563,8 @@ function MapContact() {
   useEffect(() => {
     if (!mapDivRef.current || mapInstanceRef.current) return;
     const map = L.map(mapDivRef.current, {
-      center: [42.05, -71.1],
-      zoom: 8.3,
+      center: HOME.center,
+      zoom: HOME.zoom,
       scrollWheelZoom: false,
       attributionControl: false,
     });
@@ -605,7 +611,7 @@ function MapContact() {
       <div className="mc-grid">
         <div className="mc-left">
           <div className="sec-tag" style={{textAlign:'left'}}>Coverage</div>
-          <h2 className="mc-h2">Service Areas</h2>
+          <h2 className="mc-h2">Service Area</h2>
           <div className="chips">
             {areas.map(a=><span className="chip" key={a}>{a}</span>)}
           </div>
@@ -706,7 +712,7 @@ function MapContact() {
 /* ── FOOTER ── */
 function Footer() {
   const { site } = useContent();
-  const links = [['Services','#services'],['Portfolio','#portfolio'],['Process','#process'],['Instagram','#instagram'],['Service Areas','#service-areas'],['Contact','#contact']];
+  const links = [['Services','#services'],['Portfolio','#portfolio'],['Process','#process'],['Instagram','#instagram'],['Service Area','#service-areas'],['Contact','#contact']];
   return (
     <footer className="footer">
       <div className="ft-top">
