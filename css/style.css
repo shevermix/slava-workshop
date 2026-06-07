@@ -158,6 +158,8 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
 .mc-thanks-copy--done{color:#16a34a}
 .mc-thanks-row--static{cursor:default}
 .mc-thanks-row--static:hover{background:#fff}
+.mc-thanks-reminder{display:flex;align-items:flex-start;gap:8px;background:rgba(255,200,50,.12);border:1px solid rgba(255,200,50,.35);border-radius:7px;padding:10px 13px;color:rgba(255,220,100,.95);font-size:12px;line-height:1.5;width:100%;box-sizing:border-box;margin-top:4px;text-align:left}
+.mc-thanks-reminder strong{font-weight:700}
 
 /* ── FOOTER ── */
 .footer{background:var(--bg2);border-top:1px solid var(--border);padding:28px 48px 0}
