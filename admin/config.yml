@@ -48,6 +48,25 @@ collections:
               - { label: "Step title",  name: "title", widget: "string" }
               - { label: "Description", name: "text",  widget: "text"   }
 
+          - label: "Before & After (gallery)"
+            name: "gallery"
+            widget: "list"
+            fields:
+              - { label: "Description (e.g. Kitchen 2 — Shaker doors)", name: "material", widget: "string" }
+              - { label: "Color before", name: "from", widget: "string", hint: "e.g. Cherry Oak" }
+              - { label: "Color after",  name: "to",   widget: "string", hint: "e.g. Matte White" }
+              - { label: "Before photo", name: "beforeImg", widget: "image" }
+              - { label: "After photo",  name: "afterImg",  widget: "image" }
+
+          - label: "Our Process (steps)"
+            name: "process"
+            widget: "list"
+            fields:
+              - { label: "Step number", name: "num",   widget: "string", hint: "e.g. 01" }
+              - { label: "Step title",  name: "title", widget: "string" }
+              - { label: "Description", name: "desc",  widget: "text" }
+              - { label: "Photo",       name: "img",   widget: "image" }
+
           - label: "Contact form"
             name: "contact"
             widget: "object"

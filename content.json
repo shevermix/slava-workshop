@@ -42,6 +42,16 @@
       "text": "Final inspection, touch-ups, full cleanup — and a 1-year written warranty on every job we do."
     }
   ],
+  "gallery": [
+    { "material": "Kitchen 2 — Shaker doors", "from": "Cherry Oak", "to": "Matte White", "beforeImg": "k2_bef.jpg", "afterImg": "k2_aft.jpg" },
+    { "material": "Kitchen 3 — Raised panel", "from": "Dark Espresso", "to": "Matte White", "beforeImg": "k3_bef.jpg", "afterImg": "k3_aft.jpg" }
+  ],
+  "process": [
+    { "num": "01", "title": "Lead Paint Test",   "desc": "Certified lead test on every project — your family's safety first.", "img": "proc_lead.jpg" },
+    { "num": "02", "title": "Spray Booth Setup",  "desc": "Professional containment tent keeps your home completely dust-free.", "img": "proc_tent.jpg" },
+    { "num": "03", "title": "Full Surface Prep",  "desc": "Degreasing, sanding, and filling every dent and imperfection.", "img": "proc_tools.jpg" },
+    { "num": "04", "title": "Fill & Prime",       "desc": "Every nick filled and sanded flush, then primed for perfect adhesion.", "img": "proc_spackle.jpg" }
+  ],
   "contact": {
     "title": "Get a Free Estimate",
     "sub": "Text us photos — we reply same day"

@@ -309,10 +309,8 @@ function Services() {
 
 /* ── GALLERY ── */
 function Gallery({ openLb }) {
-  const projects = [
-    { from:'Cherry Oak', to:'Matte White', material:'Kitchen 2 — Shaker doors', beforeImg:'k2_bef.jpg', beforePos:'center', afterImg:'k2_aft.jpg', afterPos:'center' },
-    { from:'Dark Espresso', to:'Matte White', material:'Kitchen 3 — Raised panel', beforeImg:'k3_bef.jpg', beforePos:'center', afterImg:'k3_aft.jpg', afterPos:'center 30%' },
-  ];
+  const { gallery } = useContent();
+  const projects = gallery || [];
   const galItems = projects.flatMap(p => [
     { src: p.beforeImg, caption: `${p.material} — Before` },
     { src: p.afterImg,  caption: `${p.material} — After`  },
@@ -353,20 +351,15 @@ function Gallery({ openLb }) {
 
 /* ── PROCESS ── */
 function Process({ openLb }) {
-  const steps = [
-    { img:'proc_lead.jpg',    bgPos:'center top', num:'01', title:'Lead Paint Test',   desc:"Certified lead test on every project — your family's safety first." },
-    { img:'proc_tent.jpg',    bgPos:'center',     num:'02', title:'Spray Booth Setup',  desc:'Professional containment tent keeps your home completely dust-free.' },
-    { img:'proc_tools.jpg',   bgPos:'center top', num:'03', title:'Full Surface Prep',  desc:'Degreasing, sanding, and filling every dent and imperfection.' },
-    { img:'proc_spackle.jpg', bgPos:'center top', num:'04', title:'Fill & Prime',       desc:'Every nick filled and sanded flush, then primed for perfect adhesion.' },
-  ];
-  const procItems = steps.map(s => ({ src: s.img, caption: `Step ${s.num} — ${s.title}` }));
+  const { process: steps } = useContent();
+  const procItems = (steps || []).map(s => ({ src: s.img, caption: `Step ${s.num} — ${s.title}` }));
   return (
     <section className="sec proc-sec" id="process">
       <div className="sec-inner">
         <div className="sec-tag">Behind The Scenes</div>
         <h2 className="sec-h2">Our Process</h2>
         <div className="proc-grid">
-          {steps.map((s,i)=>(
+          {(steps||[]).map((s,i)=>(
             <div className="proc-card" key={i}>
               <div className="proc-img" style={{backgroundImage:`url('${s.img}')`,backgroundPosition:s.bgPos}}
                 onClick={() => openLb({ items: procItems, idx: i })} role="button" tabIndex={0}
