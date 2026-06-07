@@ -1,6 +1,6 @@
 {
   "site": {
-    "name": "Slavik Workshop",
+    "name": "Slavik Workshop11",
     "phone": "5085949313",
     "phone_display": "508-594-9313",
     "instagram": "https://instagram.com/slavik.workshop"
@@ -12,9 +12,18 @@
     "cta": "📷 Free Estimate by Photo"
   },
   "badges": [
-    { "title": "Eco-Friendly Paint", "sub": "Zero fumes · safe for kids & pets" },
-    { "title": "1-Year Warranty",    "sub": "Written guarantee on every job"     },
-    { "title": "Licensed & Insured", "sub": "MA licensed · fully insured"        }
+    {
+      "title": "Eco-Friendly Paint",
+      "sub": "Zero fumes · safe for kids & pets"
+    },
+    {
+      "title": "1-Year Warranty",
+      "sub": "Written guarantee on every job"
+    },
+    {
+      "title": "Licensed & Insured",
+      "sub": "MA licensed · fully insured"
+    }
   ],
   "services": [
     {
@@ -42,12 +51,30 @@
     "title": "Follow Our Work",
     "handle": "@slavik.workshop",
     "posts": [
-      { "url": "https://www.instagram.com/reel/DK4Aa47g_Bn/", "published": true },
-      { "url": "https://www.instagram.com/reel/DKp5c31vn1L/", "published": true },
-      { "url": "https://www.instagram.com/p/Cgj_Ks7o23R/", "published": true },
-      { "url": "https://www.instagram.com/p/CgbrPHFoHhU/", "published": true },
-      { "url": "https://www.instagram.com/p/Cd_WRwJoOdg/", "published": true },
-      { "url": "https://www.instagram.com/p/CdFkVBdo6Iq/", "published": true }
+      {
+        "url": "https://www.instagram.com/reel/DK4Aa47g_Bn/",
+        "published": true
+      },
+      {
+        "url": "https://www.instagram.com/reel/DKp5c31vn1L/",
+        "published": true
+      },
+      {
+        "url": "https://www.instagram.com/p/Cgj_Ks7o23R/",
+        "published": true
+      },
+      {
+        "url": "https://www.instagram.com/p/CgbrPHFoHhU/",
+        "published": true
+      },
+      {
+        "url": "https://www.instagram.com/p/Cd_WRwJoOdg/",
+        "published": true
+      },
+      {
+        "url": "https://www.instagram.com/p/CdFkVBdo6Iq/",
+        "published": true
+      }
     ]
   }
 }
