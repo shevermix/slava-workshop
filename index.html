@@ -490,10 +490,8 @@ function Lightbox({ items, idx, onClose, onChange }) {
 function MapContact() {
   const { areas, contact, site } = useContent();
   const [form, setForm] = useState({ name:'', email:'', phone:'' });
-  const [photos, setPhotos] = useState([]);
   const [mapFs, setMapFs] = useState(false);
   const [mapFsClosing, setMapFsClosing] = useState(false);
-  const fileRef = useRef(null);
   const mapDivRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const set = k => e => setForm(f=>({...f,[k]:e.target.value}));
@@ -595,21 +593,15 @@ function MapContact() {
             <div className="mc-head-sub">{contact.sub}</div>
           </div>
           <div className="mc-form">
-            {[['Name','name','text'],['Email','email','email'],['Phone','phone','tel']].map(([label,key,type])=>(
+            {[['Name','name','text',true],['Email','email','email',true],['Phone','phone','tel',false]].map(([label,key,type,req])=>(
               <div key={key} className="f-field">
                 <input className="f-inp" placeholder=" " value={form[key]} onChange={set(key)}
-                  id={`f-${key}`} type={type}/>
-                <label className="f-lbl" htmlFor={`f-${key}`}>{label}</label>
+                  id={`f-${key}`} type={type} required={req||undefined}/>
+                <label className="f-lbl" htmlFor={`f-${key}`}>
+                  {label}{req && <span className="f-req"> *</span>}
+                </label>
               </div>
             ))}
-            <div>
-              <div className="f-lbl">Upload Photos</div>
-              <input ref={fileRef} type="file" accept="image/jpeg,image/png" multiple style={{display:'none'}} onChange={e => setPhotos([...e.target.files])}/>
-              <div className="f-upload" onClick={() => fileRef.current?.click()} role="button" tabIndex={0} onKeyDown={e => { if (e.key==='Enter'||e.key===' ') fileRef.current?.click(); }}>
-                {photos.length > 0 ? `📷 ${photos.length} photo${photos.length>1?'s':''} selected` : '📷 Click to upload cabinet photos'}
-                <br/><span style={{fontSize:11,opacity:.7}}>JPG, PNG — up to 10 MB</span>
-              </div>
-            </div>
             <a href={`sms:${site.phone}`} className="btn-submit">Submit Request</a>
           </div>
         </div>

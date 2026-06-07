@@ -141,8 +141,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
 .f-inp:focus{animation:fieldFlash .6s ease-out}
 .f-lbl{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:13px;font-weight:400;color:rgba(255,255,255,.42);pointer-events:none;transition:all .2s ease;letter-spacing:normal;text-transform:none;margin:0}
 .f-inp:focus+.f-lbl,.f-inp:not(:placeholder-shown)+.f-lbl{top:9px;transform:none;font-size:10px;font-weight:700;color:rgba(255,255,255,.75);letter-spacing:.09em;text-transform:uppercase}
-.f-upload{border:1.5px dashed rgba(255,255,255,.3);border-radius:5px;padding:18px;text-align:center;cursor:pointer;color:rgba(255,255,255,.55);font-size:12px;line-height:1.6;transition:border-color .2s}
-.f-upload:hover{border-color:rgba(255,255,255,.65);color:rgba(255,255,255,.85)}
+.f-req{color:#ff8a8a;font-weight:700}
 .btn-submit{background:#fff;color:var(--brand);border:none;padding:14px;border-radius:6px;font-family:var(--sans);font-weight:700;font-size:13px;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:background .2s;text-align:center;display:block;width:100%;text-decoration:none;margin-top:4px}
 .btn-submit:hover{background:var(--brand-l)}
 
