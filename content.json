@@ -51,30 +51,12 @@
     "title": "Follow Our Work",
     "handle": "@slavik.workshop",
     "posts": [
-      {
-        "url": "https://www.instagram.com/reel/DK4Aa47g_Bn/",
-        "published": true
-      },
-      {
-        "url": "https://www.instagram.com/reel/DKp5c31vn1L/",
-        "published": true
-      },
-      {
-        "url": "https://www.instagram.com/p/Cgj_Ks7o23R/",
-        "published": true
-      },
-      {
-        "url": "https://www.instagram.com/p/CgbrPHFoHhU/",
-        "published": true
-      },
-      {
-        "url": "https://www.instagram.com/p/Cd_WRwJoOdg/",
-        "published": true
-      },
-      {
-        "url": "https://www.instagram.com/p/CdFkVBdo6Iq/",
-        "published": true
-      }
+      { "image": "", "url": "https://www.instagram.com/reel/DK4Aa47g_Bn/", "published": true },
+      { "image": "", "url": "https://www.instagram.com/reel/DKp5c31vn1L/", "published": true },
+      { "image": "", "url": "https://www.instagram.com/p/Cgj_Ks7o23R/", "published": true },
+      { "image": "", "url": "https://www.instagram.com/p/CgbrPHFoHhU/", "published": true },
+      { "image": "", "url": "https://www.instagram.com/p/Cd_WRwJoOdg/", "published": true },
+      { "image": "", "url": "https://www.instagram.com/p/CdFkVBdo6Iq/", "published": true }
     ]
   }
 }

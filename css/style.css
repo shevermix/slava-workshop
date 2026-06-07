@@ -108,8 +108,13 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
 .ig-sec{background:var(--bg2);overflow-x:hidden}
 .ig-handle{display:inline-block;margin-bottom:26px;color:var(--brand);font-weight:600;font-size:14px;text-decoration:none}
 .ig-handle:hover{text-decoration:underline}
-.ig-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:1040px;margin:0 auto;align-items:start;justify-items:center}
-.ig-grid .instagram-media{margin:0 !important;width:100% !important}
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;max-width:900px;margin:0 auto}
+.ig-card{position:relative;display:block;aspect-ratio:1;overflow:hidden;background:#e8edf0}
+.ig-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+.ig-card:hover img{transform:scale(1.04)}
+.ig-card-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#aab4bc}
+.ig-card-overlay{position:absolute;inset:0;background:rgba(27,81,118,.35);display:flex;align-items:center;justify-content:center;color:#fff;opacity:0;transition:opacity .25s}
+.ig-card:hover .ig-card-overlay{opacity:1}
 
 /* ── MAP + CONTACT ── */
 .mc-wrap{border-top:1px solid var(--border)}
@@ -212,8 +217,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
   /* Instagram: 2 columns on mobile — embeds have a 326px min-width,
      so scale each card down with zoom to fit two per row */
   .ig-sec{padding-left:10px;padding-right:10px}
-  .ig-grid{grid-template-columns:repeat(2,max-content);gap:6px;justify-content:center}
-  .ig-grid .instagram-media{width:326px !important;min-width:326px !important;zoom:.52}
+  .ig-grid{grid-template-columns:repeat(2,1fr);gap:3px}
   .nav-sep{display:none}
 
   /* Mobile menu portal (rendered to document.body, no backdrop-filter parent) */

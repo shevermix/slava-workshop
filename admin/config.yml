@@ -66,5 +66,6 @@ collections:
                 name: "posts"
                 widget: "list"
                 fields:
-                  - { label: "Instagram post URL", name: "url", widget: "string", hint: "Paste the post link, e.g. https://www.instagram.com/p/ABC123/. The post must be public." }
+                  - { label: "Preview image", name: "image", widget: "image", required: false, hint: "Upload a screenshot or photo for this post." }
+                  - { label: "Instagram post URL", name: "url", widget: "string", required: false, hint: "Link to Instagram post (e.g. https://www.instagram.com/p/ABC123/). Card will link here." }
                   - { label: "Show on site", name: "published", widget: "boolean", default: true }

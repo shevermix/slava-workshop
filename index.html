@@ -389,24 +389,7 @@ function Process({ openLb }) {
 function Instagram() {
   const { instagram, site } = useContent();
   const ig = instagram || {};
-  const posts = (ig.posts || []).filter(p => p && p.published && p.url);
-
-  useEffect(() => {
-    if (!posts.length) return;
-    const run = () => { if (window.instgrm) window.instgrm.Embeds.process(); };
-    if (window.instgrm) { run(); return; }
-    let s = document.getElementById('ig-embed-js');
-    if (!s) {
-      s = document.createElement('script');
-      s.id = 'ig-embed-js';
-      s.async = true;
-      s.src = 'https://www.instagram.com/embed.js';
-      s.addEventListener('load', run);
-      document.body.appendChild(s);
-    } else {
-      s.addEventListener('load', run);
-    }
-  }, [posts.length, posts.map(p=>p.url).join(',')]);
+  const posts = (ig.posts || []).filter(p => p && p.published && (p.image || p.url));
 
   if (!posts.length) return null;
 
@@ -420,8 +403,13 @@ function Instagram() {
         )}
         <div className="ig-grid">
           {posts.map(p => (
-            <blockquote key={p.url} className="instagram-media"
-              data-instgrm-permalink={p.url} data-instgrm-version="14"/>
+            <a key={p.url || p.image} className="ig-card" href={p.url || '#'} target="_blank" rel="noopener noreferrer">
+              {p.image
+                ? <img src={p.image} alt="Instagram post" loading="lazy"/>
+                : <div className="ig-card-placeholder"><svg width="32" height="32" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div>
+              }
+              <div className="ig-card-overlay"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="currentColor" strokeWidth="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1.2"/></svg></div>
+            </a>
           ))}
         </div>
       </div>
