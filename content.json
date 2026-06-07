@@ -93,36 +93,12 @@
     "title": "Follow Our Work",
     "handle": "@slavik.workshop",
     "posts": [
-      {
-        "image": "f5378363-5315-4fcd-9a0f-3896b3ebade9-.png",
-        "url": "https://www.instagram.com/reel/DK4Aa47g_Bn/",
-        "published": true
-      },
-      {
-        "image": "f5378363-5315-4fcd-9a0f-3896b3ebade9-.png",
-        "url": "https://www.instagram.com/reel/DKp5c31vn1L/",
-        "published": true
-      },
-      {
-        "image": "f5378363-5315-4fcd-9a0f-3896b3ebade9-.png",
-        "url": "https://www.instagram.com/p/Cgj_Ks7o23R/",
-        "published": true
-      },
-      {
-        "image": "f5378363-5315-4fcd-9a0f-3896b3ebade9-.png",
-        "url": "https://www.instagram.com/p/CgbrPHFoHhU/",
-        "published": true
-      },
-      {
-        "image": "f5378363-5315-4fcd-9a0f-3896b3ebade9-.png",
-        "url": "https://www.instagram.com/p/Cd_WRwJoOdg/",
-        "published": true
-      },
-      {
-        "image": "f5378363-5315-4fcd-9a0f-3896b3ebade9-.png",
-        "url": "https://www.instagram.com/p/CdFkVBdo6Iq/",
-        "published": true
-      }
+      { "image": "f5378363-5315-4fcd-9a0f-3896b3ebade9-.png", "caption": "", "url": "https://www.instagram.com/reel/DK4Aa47g_Bn/", "published": true },
+      { "image": "f5378363-5315-4fcd-9a0f-3896b3ebade9-.png", "caption": "", "url": "https://www.instagram.com/reel/DKp5c31vn1L/", "published": true },
+      { "image": "f5378363-5315-4fcd-9a0f-3896b3ebade9-.png", "caption": "", "url": "https://www.instagram.com/p/Cgj_Ks7o23R/", "published": true },
+      { "image": "f5378363-5315-4fcd-9a0f-3896b3ebade9-.png", "caption": "", "url": "https://www.instagram.com/p/CgbrPHFoHhU/", "published": true },
+      { "image": "f5378363-5315-4fcd-9a0f-3896b3ebade9-.png", "caption": "", "url": "https://www.instagram.com/p/Cd_WRwJoOdg/", "published": true },
+      { "image": "f5378363-5315-4fcd-9a0f-3896b3ebade9-.png", "caption": "", "url": "https://www.instagram.com/p/CdFkVBdo6Iq/", "published": true }
     ]
   }
 }

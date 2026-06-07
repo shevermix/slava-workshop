@@ -86,5 +86,6 @@ collections:
                 widget: "list"
                 fields:
                   - { label: "Preview image", name: "image", widget: "image", required: false, hint: "Upload a screenshot or photo for this post." }
+                  - { label: "Caption", name: "caption", widget: "string", required: false, hint: "Short description shown below the photo (optional)." }
                   - { label: "Instagram post URL", name: "url", widget: "string", required: false, hint: "Link to Instagram post (e.g. https://www.instagram.com/p/ABC123/). Card will link here." }
                   - { label: "Show on site", name: "published", widget: "boolean", default: true }
