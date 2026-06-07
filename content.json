@@ -56,13 +56,6 @@
       "to": "Matte White",
       "beforeImg": "k3_bef.jpg",
       "afterImg": "k3_aft.jpg"
-    },
-    {
-      "material": "1111",
-      "from": "йцу",
-      "to": "йцу",
-      "beforeImg": "695c8efb-92d5-4062-9837-80f4786e3ce4-.png",
-      "afterImg": "f39b87ea-975f-4e7b-a895-7417827122d0-.png"
     }
   ],
   "process": [
