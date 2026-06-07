@@ -48,14 +48,6 @@ collections:
               - { label: "Step title",  name: "title", widget: "string" }
               - { label: "Description", name: "text",  widget: "text"   }
 
-          - label: "Service Areas"
-            name: "areas"
-            widget: "list"
-            field:
-              label: "Area name"
-              name: "area"
-              widget: "string"
-
           - label: "Contact form"
             name: "contact"
             widget: "object"
