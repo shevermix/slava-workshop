@@ -71,7 +71,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
 @keyframes svcIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 .svc-sec{background:var(--bg2)}
 .svc-row{display:flex;align-items:stretch;justify-content:center}
-.svc-step{flex:1;max-width:280px;text-align:center;padding:28px 24px;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.06);opacity:0;transition:transform .2s ease,box-shadow .2s ease}
+.svc-step{position:relative;flex:1;max-width:280px;text-align:center;padding:28px 24px;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.06);opacity:0;transition:transform .2s ease,box-shadow .2s ease}
 .svc-step--visible{opacity:1;animation:svcIn .5s ease backwards}
 .svc-step--visible:hover{transform:translateY(-4px);box-shadow:0 8px 28px rgba(27,81,118,.14)}
 .svc-icon{width:72px;height:72px;border-radius:50%;border:2px solid var(--brand);background:var(--brand-l);display:flex;align-items:center;justify-content:center;color:var(--brand);margin:0 auto 14px}
@@ -296,6 +296,17 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
   .hero-badges{flex-direction:column}
   .hero-badge+.hero-badge{border-left:none;border-top:1px solid var(--border)}
 }
+
+/* ── VIDEO MODAL ── */
+@keyframes vmIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.vm-bd{position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:3000;display:flex;align-items:center;justify-content:center;animation:vmIn .2s cubic-bezier(.34,1.4,.64,1)}
+.vm-wrap{position:relative;width:min(92vw,900px);aspect-ratio:16/9;background:#000;border-radius:10px;overflow:hidden;box-shadow:0 8px 48px rgba(0,0,0,.6)}
+.vm-frame,.vm-video{width:100%;height:100%;border:none;display:block}
+.vm-x{position:absolute;top:10px;right:12px;background:rgba(0,0,0,.55);color:#fff;border:none;border-radius:50%;width:36px;height:36px;font-size:15px;cursor:pointer;z-index:1;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.vm-x:hover{background:rgba(0,0,0,.88)}
+.svc-step--video{cursor:pointer}
+.svc-play{position:absolute;top:12px;right:12px;width:36px;height:36px;background:var(--brand);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;opacity:.8;transition:opacity .2s,transform .2s;pointer-events:none;padding-left:2px}
+.svc-step--video:hover .svc-play{opacity:1;transform:scale(1.14)}
 
 /* ── LIGHTBOX ── */
 .lb-bd{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;padding:20px;transition:background .32s ease}

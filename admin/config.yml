@@ -47,6 +47,11 @@ collections:
               - { label: "Step number", name: "num",   widget: "string" }
               - { label: "Step title",  name: "title", widget: "string" }
               - { label: "Description", name: "text",  widget: "text"   }
+              - label: "Video (optional)"
+                name: "video"
+                widget: "file"
+                required: false
+                hint: "Upload MP4/MOV clip, or paste a YouTube URL (e.g. https://youtu.be/ABC123). Leave blank for no video."
 
           - label: "Before & After (gallery)"
             name: "gallery"

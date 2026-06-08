@@ -13,7 +13,7 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <link rel="stylesheet" href="css/style.css?v=15"/>
+  <link rel="stylesheet" href="css/style.css?v=16"/>
   <!-- Netlify Identity (needed for Decap CMS login redirect) -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
@@ -250,9 +250,38 @@ function Hero() {
   );
 }
 
+/* ── VIDEO MODAL ── */
+function VideoModal({ src, onClose }) {
+  useEffect(() => {
+    const h = e => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', h);
+    return () => document.removeEventListener('keydown', h);
+  }, [onClose]);
+
+  const isYT = /youtu(be\.com|\.be)/.test(src);
+  function ytUrl(u) {
+    const m = u.match(/(?:v=|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+    return m ? `https://www.youtube.com/embed/${m[1]}?autoplay=1&rel=0` : u;
+  }
+
+  return ReactDOM.createPortal(
+    <div className="vm-bd" onClick={onClose}>
+      <div className="vm-wrap" onClick={e => e.stopPropagation()}>
+        <button className="vm-x" onClick={onClose} aria-label="Close">✕</button>
+        {isYT
+          ? <iframe className="vm-frame" src={ytUrl(src)} allow="autoplay; fullscreen" allowFullScreen/>
+          : <video className="vm-video" src={src} controls autoPlay playsInline/>
+        }
+      </div>
+    </div>,
+    document.body
+  );
+}
+
 /* ── SERVICES ── */
 function Services() {
   const { services, site } = useContent();
+  const [activeVideo, setActiveVideo] = useState(null);
 
   const icons = [
     <svg key="prep" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>,
@@ -280,10 +309,12 @@ function Services() {
           {services.map((s, i) => (
             <React.Fragment key={i}>
               <div
-                className="svc-step"
+                className={`svc-step${s.video ? ' svc-step--video' : ''}`}
                 ref={el => stepRefs.current[i] = el}
                 style={{ animationDelay: `${i * 0.12}s` }}
+                onClick={() => s.video && setActiveVideo(s.video)}
               >
+                {s.video && <div className="svc-play" aria-hidden="true">▶</div>}
                 <div className="svc-icon">{icons[i]}</div>
                 <div className="svc-num">Step {s.num}</div>
                 <div className="svc-title">{s.title}</div>
@@ -303,6 +334,7 @@ function Services() {
           <a href="#contact" onClick={focusContactField} className="btn-hero">📷 Get Your Free Estimate</a>
         </div>
       </div>
+      {activeVideo && <VideoModal src={activeVideo} onClose={() => setActiveVideo(null)} />}
     </section>
   );
 }
