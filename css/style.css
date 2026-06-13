@@ -321,7 +321,7 @@ body{font-family:var(--sans);color:var(--text);background:var(--bg);-webkit-font
 .lb-dot:hover{background:rgba(255,255,255,.7)}
 .lb-x{position:fixed;top:18px;right:22px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .18s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .lb-x:hover{background:rgba(255,255,255,.25)}
-.lb-arr{position:fixed;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.12);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .18s,transform .22s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.lb-arr{position:fixed;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.12);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .18s,transform .22s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:1}
 .lb-arr:hover{background:rgba(255,255,255,.24);transform:translateY(-50%) scale(1.07)}
 .lb-arr--l{left:18px}
 .lb-arr--r{right:18px}
