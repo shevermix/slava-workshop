@@ -764,7 +764,7 @@ function Footer() {
 
 /* ── APP ── */
 function App() {
-  const [content, setContent] = useState(null);
+  const [content, setContent] = useState(DEFAULT);
   const [lb, setLb] = useState(null);
   const closeLb  = useCallback(() => setLb(null), []);
   const changeLb = useCallback(i => setLb(l => l ? {...l, idx: i} : l), []);
@@ -775,8 +775,6 @@ function App() {
       .then(setContent)
       .catch(() => setContent(DEFAULT));
   }, []);
-
-  if (!content) return null;
 
   return (
     <Ctx.Provider value={content}>
