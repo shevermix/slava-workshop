@@ -15,7 +15,7 @@
   <script src="https://unpkg.com/@babel/standalone@7.25.6/babel.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <link rel="stylesheet" href="css/style.css?v=17"/>
+  <link rel="stylesheet" href="css/style.css?v=18"/>
   <!-- Netlify Identity (needed for Decap CMS login redirect) -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script>
@@ -725,6 +725,7 @@ function MapContact() {
               <button type="submit" className="btn-submit" disabled={sending}>
                 {sending ? 'Sending…' : 'Submit Request'}
               </button>
+              <p className="f-consent">By clicking submit, you agree to our <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</p>
             </form>
           )}
         </div>
