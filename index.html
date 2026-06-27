@@ -263,7 +263,7 @@ function VideoModal({ src, onClose }) {
   const isYT = /youtu(be\.com|\.be)/.test(src);
   function ytUrl(u) {
     const m = u.match(/(?:v=|youtu\.be\/)([A-Za-z0-9_-]{11})/);
-    return m ? `https://www.youtube.com/embed/${m[1]}?autoplay=1&rel=0` : u;
+    return m ? `https://www.youtube-nocookie.com/embed/${m[1]}?autoplay=1&rel=0` : u;
   }
 
   return ReactDOM.createPortal(
@@ -765,7 +765,7 @@ function Footer() {
         </div>
       </div>
       <div className="ft-copy">
-        © {new Date().getFullYear()} {site.name}. Licensed &amp; Insured. <a href={`tel:${site.phone}`}>({site.phone.slice(0,3)}) {site.phone.slice(3,6)}-{site.phone.slice(6)}</a>
+        © {new Date().getFullYear()} {site.name}. Licensed &amp; Insured. <a href={`tel:${site.phone}`}>({site.phone.slice(0,3)}) {site.phone.slice(3,6)}-{site.phone.slice(6)}</a> · <a href="privacy.html">Privacy Policy</a>
       </div>
     </footer>
   );
